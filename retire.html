@@ -6,41 +6,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE-edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+    <script  type="text/javascript" src="retire.js"></script>
 </head>
 <body>
 <div>
     <span>退休年龄</span>
-    <input type="number"  min="40" max="70" value="50" id="age" />
+    <input type="number" min="40" max="70" id="retireAge" value="50"/>
     <br />
     <span>上年度社会平均工资</span>
-    <input type="number"  min="1"  value="4376" />
+    <input type="number" min="1" id="latelyWages" value="4376" />
     <br />
     <span>累计缴费月份</span>
-    <input type="number"  min="180" max="540" value="180" />
+    <input type="number" min="180" max="540" id="payMonth" value="180" />
     <br />
     <span>平均指数</span>
-    <input type="number"  min="0.600" max="3.000" value="0.600" step="0.001" />
+    <input type="number" min="0.600" max="3.000" id="averageNumber" value="0.600" step="0.001" />
     <br />
     <span>个人账户存储额</span>
-    <input type="number"  min="0.00"  step="0.01" value="0.00" />
+    <input type="number" min="0.00" id="accountBalance" value="0.00" step="0.01" />
     <br />
     <span>参加工作时间</span>
-    <input type="number"  min="1970" max="2015"  />年<input type="number"  min="1" max="12"  />月
+    <input type="number" min="1970" max="1995" value="1980" id="workYear"/>年<input type="number" min="1" max="12" value="1" id="workMonth"/>月
     <br />
     <span>建立个人账户时间</span>
-    <input type="number"  min="1995" max="1999"  value="1996" />年<input type="number"  min="1" max="12"  value="1" />月
+    <input type="number" min="1995" max="1999" value="1996" id="buildYear"/>年<input type="number" min="1" max="12" value="1" id="buildMonth"/>月
     <br />
-    <button onclick="cal()">计算</button>
+    <button onclick="calculate()">计算</button>
     <br />
-    <p id="pid">基础养老金=（职工退休上限度全市在岗职工月平均工资+本人指数化月平均工资）/2*缴费年限*1%</p>
     <br />
+    <span>基础养老金=（职工退休上限度全市在岗职工月平均工资+本人指数化月平均工资）/2*缴费年限*1%</span><p id="basicMoney"></p>
+    <br />
+    <span>过渡性养老金=本人指数化月平均工资*1.3%*缴费年限（建立个人账户前的缴费年限）</span><p id="limboMoney"></p>
+    <br />
+    <span>个人账户养老金=个人账户存储额/计发月份</span> <p id="accountMoney"></p>
+    <br />
+    <span>退休金=基础养老金+过渡性养老金+个人账户养老金</span> <p id="totalMoney"></p>
+    <br />
+
+
 </div>
-<script>
-    function cal(){
-        var a=document.getElementById("age").value;
-        var nv=document.getElementById("pid");
-        nv.innerHTML=a;
-    }
-</script>
+
 </body>
 </html>

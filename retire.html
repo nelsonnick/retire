@@ -5,46 +5,78 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
-    <script  type="text/javascript" src="retire.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/retire.js"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div>
-    <span>退休年龄</span>
-    <input type="number" min="40" max="70" id="retireAge" value="50"/>
-    <br />
-    <span>上年度社会平均工资</span>
-    <input type="number" min="1" id="latelyWages" value="4376" />
-    <br />
-    <span>累计缴费月份</span>
-    <input type="number" min="180" max="540" id="payMonth" value="180" />
-    <br />
-    <span>平均指数</span>
-    <input type="number" min="0.600" max="3.000" id="averageNumber" value="0.600" step="0.001" />
-    <br />
-    <span>个人账户存储额</span>
-    <input type="number" min="0.00" id="accountBalance" value="0.00" step="0.01" />
-    <br />
-    <span>参加工作时间</span>
-    <input type="number" min="1970" max="1995" value="1980" id="workYear"/>年<input type="number" min="1" max="12" value="1" id="workMonth"/>月
-    <br />
-    <span>建立个人账户时间</span>
-    <input type="number" min="1995" max="1999" value="1996" id="buildYear"/>年<input type="number" min="1" max="12" value="1" id="buildMonth"/>月
-    <br />
-    <button onclick="calculate()">计算</button>
-    <br />
-    <br />
-    <span>基础养老金=（职工退休上限度全市在岗职工月平均工资+本人指数化月平均工资）/2*缴费年限*1%</span><p id="basicMoney"></p>
-    <br />
-    <span>过渡性养老金=本人指数化月平均工资*1.3%*缴费年限（建立个人账户前的缴费年限）</span><p id="limboMoney"></p>
-    <br />
-    <span>个人账户养老金=个人账户存储额/计发月份</span> <p id="accountMoney"></p>
-    <br />
-    <span>退休金=基础养老金+过渡性养老金+个人账户养老金</span> <p id="totalMoney"></p>
-    <br />
-
-
+<div class="container">
+    <div class="st-container">
+        <!--导航栏开始-->
+        <input type="radio" name="radio-set" checked="checked" id="st-control-1">
+        <a href="#st-panel-1">精准计算</a>
+        <input type="radio" name="radio-set" id="st-control-2">
+        <a href="#st-panel-2">缴费估算</a>
+        <input type="radio" name="radio-set" id="st-control-3">
+        <a href="#st-panel-3">公式说明</a>
+        <input type="radio" name="radio-set" id="st-control-4">
+        <a href="#st-panel-4">相关数据</a>
+        <input type="radio" name="radio-set" id="st-control-5">
+        <a href="#st-panel-5">计算结果</a>
+    </div>
 </div>
+
+<div class="st-scroll">
+    <section class="st-panel" id="st-panel-1">
+        <div class="st-desc" data-icon="H"></div>
+        <h2>精准计算</h2>
+
+
+
+
+
+
+
+
+
+        <span>退休年龄</span>
+        <input type="number" min="40" max="70" id="retireAge" value="50" size="20"/>
+        <br/>
+        <span>上年度社会平均工资</span>
+        <input type="number" min="1" id="latelyWages" value="4376" size="20"/>
+        <br/>
+        <span>累计缴费月份</span>
+        <input type="number" min="180" max="540" id="payMonth" value="180" size="20"/>
+        <br/>
+        <span>平均指数</span>
+        <input type="number" min="0.600" max="3.000" id="averageNumber" value="0.600" step="0.001" size="20"/>
+        <br/>
+        <span>个人账户存储额</span>
+        <input type="number" min="0.00" id="accountBalance" value="0.00" step="0.01" size="20"/>
+        <br/>
+        <span>参加工作时间</span>
+        <input type="number" min="1970" max="1995" value="1980" id="workYear"/>年<input type="number" min="1" max="12"
+                                                                                       value="1" id="workMonth"/>月
+        <br/>
+        <span>建立个人账户时间</span>
+        <input type="number" min="1995" max="1999" value="1996" id="buildYear"/>年<input type="number" min="1" max="12"
+                                                                                        value="1" id="buildMonth"/>月
+        <br/>
+        <button onclick="simpleCalculate()">计算</button>
+        <button onclick="clearForm()">重置</button>
+    </section>
+</div>
+
+<br/>
+<p id="basicMoney">基础养老金=(职工退休上限度全市在岗职工月平均工资+本人指数化月平均工资)/2*缴费年限*1%</p>
+<br/>
+<p id="limboMoney">过渡性养老金=本人指数化月平均工资*1.3%*缴费年限(建立个人账户前的缴费年限)</p>
+<br/>
+<p id="accountMoney">个人账户养老金=个人账户存储额/计发月份</p>
+<br/>
+<p id="totalMoney">退休金=基础养老金+过渡性养老金+个人账户养老金</p>
+<br/>
+
 
 </body>
 </html>

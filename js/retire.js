@@ -149,40 +149,248 @@ function clearForm() {
     document.getElementById("buildYear").value = "1996";
     document.getElementById("buildMonth").value = "1";
 }
-function payMonthChange(){
-    var a=document.getElementById("payMonth-2").value;
-    if (a>=180 && a<192){
-        document.getElementById("wages1").disabled=false;
-        document.getElementById("base1").disabled=false;
-        document.getElementById("wages2").disabled=false;
-        document.getElementById("base2").disabled=false;
-        document.getElementById("wages3").disabled=false;
-        document.getElementById("base3").disabled=false;
-        document.getElementById("wages4").disabled=false;
-        document.getElementById("base4").disabled=false;
-        document.getElementById("wages5").disabled=false;
-        document.getElementById("base5").disabled=false;
-        document.getElementById("wages6").disabled=false;
-        document.getElementById("base6").disabled=false;
-        document.getElementById("wages7").disabled=false;
-        document.getElementById("base7").disabled=false;
-        document.getElementById("wages8").disabled=false;
-        document.getElementById("base8").disabled=false;
-        document.getElementById("wages9").disabled=false;
-        document.getElementById("base9").disabled=false;
-        document.getElementById("wages10").disabled=false;
-        document.getElementById("base10").disabled=false;
-        document.getElementById("wages11").disabled=false;
-        document.getElementById("base11").disabled=false;
-        document.getElementById("wages12").disabled=false;
-        document.getElementById("base12").disabled=false;
-        document.getElementById("wages13").disabled=false;
-        document.getElementById("base13").disabled=false;
-        document.getElementById("wages14").disabled=false;
-        document.getElementById("base14").disabled=false;
-        document.getElementById("wages15").disabled=false;
-        document.getElementById("base15").disabled=false;
-    }else {
-        document.getElementById("wages1").disabled=true;
+function payMonthChange() {
+    var a = parseFloat(document.getElementById("payMonth-2").value / 12).toFixed(3);
+    var wages = new Array(49);
+    var bases = new Array(49);
+
+    for (var i = 1; i < bases.length; i++) {
+        wages[i] = "wages" + i;
+        document.getElementById(wages[i]).value="0";
+        bases[i] = "base" + i;
+        document.getElementById(bases[i]).value="0";
     }
+    if (a < 15 || a > 48) {
+        for (var i = 1; i < wages.length; i++) {
+            document.getElementById(wages[i]).disabled = true;
+            document.getElementById(bases[i]).disabled = true;
+        }
+    } else {
+        for (var i = 1; i < Math.ceil(parseFloat(a)) + 1; i++) {
+            document.getElementById(wages[i]).disabled = false;
+            document.getElementById(bases[i]).disabled = false;
+        }
+        for (var i = Math.ceil(parseFloat(a)) + 2; i < wages.length; i++) {
+            document.getElementById(wages[i]).disabled = true;
+            document.getElementById(bases[i]).disabled = true;
+        }
+    }
+}
+function fixed(){
+    payMonthChange()
+    document.getElementById("wagesA").disabled=false;
+    document.getElementById("wagesB").disabled=true;
+    document.getElementById("wagesC").disabled=true;
+    document.getElementById("ratios").disabled=true;
+    document.getElementById("differ").disabled=true;
+    document.getElementById("wagesA").value="0";
+    document.getElementById("wagesB").value="0";
+    document.getElementById("wagesC").value="0";
+    document.getElementById("ratios").value="0.00";
+    document.getElementById("differ").value="0";
+    var wages = new Array(49);
+    for (var i = 1; i < wages.length; i++) {
+        wages[i] = "wages" + i;
+        if (document.getElementById(wages[i]).disabled==false){
+            document.getElementById(wages[i]).value = document.getElementById("wagesA").value;
+        }else{
+            document.getElementById(wages[i]).value = "0";
+        }
+    }
+    var bases = new Array(49);
+    for (var i = 1; i < bases.length; i++) {
+        bases[i] = "base" + i;
+        if (document.getElementById(bases[i]).disabled==false){
+            document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value*document.getElementById("averageNumber-2").value);
+        }else{
+            document.getElementById(bases[i]).value = "0";
+        }
+    }
+}
+function fixedValue(){
+    var wages = new Array(49);
+    for (var i = 1; i < wages.length; i++) {
+        wages[i] = "wages" + i;
+        if (document.getElementById(wages[i]).disabled==false){
+            document.getElementById(wages[i]).value = document.getElementById("wagesA").value;
+        }else{
+            document.getElementById(wages[i]).value = "0";
+        }
+    }
+    var bases = new Array(49);
+    for (var i = 1; i < bases.length; i++) {
+        bases[i] = "base" + i;
+        if (document.getElementById(bases[i]).disabled==false){
+            document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value*document.getElementById("averageNumber-2").value);
+        }else{
+            document.getElementById(bases[i]).value = "0";
+        }
+    }
+}
+function ratios(){
+    document.getElementById("wagesA").disabled=true;
+    document.getElementById("wagesB").disabled=false;
+    document.getElementById("wagesC").disabled=true;
+    document.getElementById("ratios").disabled=false;
+    document.getElementById("differ").disabled=true;
+    document.getElementById("wagesA").value="0";
+    document.getElementById("wagesB").value="0";
+    document.getElementById("wagesC").value="0";
+    document.getElementById("ratios").value="0.00";
+    document.getElementById("differ").value="0";
+    var wages = new Array(49);
+    wages[1]= "wages1";
+    document.getElementById("wages1").value =document.getElementById("wagesB").value;
+    for (var i = 2; i < wages.length; i++) {
+        wages[i] = "wages" + i;
+        if (document.getElementById(wages[i]).disabled==false){
+            document.getElementById(wages[i]).value =
+                Math.round(parseInt(document.getElementById(wages[i-1]).value)+ document.getElementById(wages[i-1]).value * parseFloat(document.getElementById("ratios").value).toFixed(2));
+        }else{
+            document.getElementById(wages[i]).value = "0";
+        }
+    }
+    var bases = new Array(49);
+    for (var i = 1; i < bases.length; i++) {
+        bases[i] = "base" + i;
+        if (document.getElementById(bases[i]).disabled==false){
+            document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value*document.getElementById("averageNumber-2").value);
+        }else{
+            document.getElementById(bases[i]).value = "0";
+        }
+    }
+}
+function ratiosValue(){
+    var wages = new Array(49);
+    wages[1]= "wages1";
+    document.getElementById("wages1").value =document.getElementById("wagesB").value;
+    for (var i = 2; i < wages.length; i++) {
+        wages[i] = "wages" + i;
+        if (document.getElementById(wages[i]).disabled==false){
+            document.getElementById(wages[i]).value =
+                Math.round(parseInt(document.getElementById(wages[i-1]).value)+ document.getElementById(wages[i-1]).value * parseFloat(document.getElementById("ratios").value).toFixed(2));
+        }else{
+            document.getElementById(wages[i]).value = "0";
+        }
+    }
+    var bases = new Array(49);
+    for (var i = 1; i < bases.length; i++) {
+        bases[i] = "base" + i;
+        if (document.getElementById(bases[i]).disabled==false){
+            document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value*document.getElementById("averageNumber-2").value);
+        }else{
+            document.getElementById(bases[i]).value = "0";
+        }
+    }
+}
+function differ(){
+    document.getElementById("wagesA").disabled=true;
+    document.getElementById("wagesB").disabled=true;
+    document.getElementById("wagesC").disabled=false;
+    document.getElementById("ratios").disabled=true;
+    document.getElementById("differ").disabled=false;
+
+    document.getElementById("wagesA").value="0";
+    document.getElementById("wagesB").value="0";
+    document.getElementById("wagesC").value="0";
+    document.getElementById("ratios").value="0.00";
+    document.getElementById("differ").value="0";
+
+    var wages = new Array(49);
+    wages[1]= "wages1";
+    document.getElementById("wages1").value =document.getElementById("wagesC").value;
+    for (var i = 2; i < wages.length; i++) {
+        wages[i] = "wages" + i;
+        if (document.getElementById(wages[i]).disabled==false){
+            document.getElementById(wages[i]).value = parseInt(document.getElementById(wages[i-1]).value)+ parseInt(document.getElementById("differ").value);
+        }else{
+            document.getElementById(wages[i]).value = "0";
+        }
+    }
+    var bases = new Array(49);
+    for (var i = 1; i < bases.length; i++) {
+        bases[i] = "base" + i;
+        if (document.getElementById(bases[i]).disabled==false){
+            document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value*document.getElementById("averageNumber-2").value);
+        }else{
+            document.getElementById(bases[i]).value = "0";
+        }
+    }
+}
+function differValue(){
+    var wages = new Array(49);
+    wages[1]= "wages1";
+    document.getElementById("wages1").value =document.getElementById("wagesC").value;
+    for (var i = 2; i < wages.length; i++) {
+        wages[i] = "wages" + i;
+        if (document.getElementById(wages[i]).disabled==false){
+            document.getElementById(wages[i]).value = parseInt(document.getElementById(wages[i-1]).value)+ parseInt(document.getElementById("differ").value);
+        }else{
+            document.getElementById(wages[i]).value = "0";
+        }
+    }
+    var bases = new Array(49);
+    for (var i = 1; i < bases.length; i++) {
+        bases[i] = "base" + i;
+        if (document.getElementById(bases[i]).disabled==false){
+            document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value*document.getElementById("averageNumber-2").value);
+        }else{
+            document.getElementById(bases[i]).value = "0";
+        }
+    }
+}
+function manual(){
+    document.getElementById("wagesA").disabled=true;
+    document.getElementById("wagesB").disabled=true;
+    document.getElementById("wagesC").disabled=true;
+    document.getElementById("ratios").disabled=true;
+    document.getElementById("differ").disabled=true;
+
+    document.getElementById("wagesA").value="0";
+    document.getElementById("wagesB").value="0";
+    document.getElementById("wagesC").value="0";
+    document.getElementById("ratios").value="0.00";
+    document.getElementById("differ").value="0";
+    var wages = new Array(49);
+    var bases = new Array(49);
+    for (var i = 1; i < bases.length; i++) {
+        wages[i] = "wages" + i;
+        document.getElementById(wages[i]).value = "0";
+        bases[i] = "base" + i;
+        if (document.getElementById(bases[i]).disabled==false){
+            document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value*document.getElementById("averageNumber-2").value);
+        }else{
+            document.getElementById(bases[i]).value = "0";
+        }
+    }
+}
+function base(){
+    document.getElementById("averageNumber-2").disabled=false;
+    var wages = new Array(49);
+    var bases = new Array(49);
+
+    for (var i = 1; i < bases.length; i++) {
+        bases[i] = "base" + i;
+        wages[i] = "wages" + i;
+        if (document.getElementById(bases[i]).disabled==false){
+            document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value*document.getElementById("averageNumber-2").value);
+        }else{
+            document.getElementById(bases[i]).value = "0";
+        }
+    }
+}
+function baseValue(){
+    var wages = new Array(49);
+    var bases = new Array(49);
+
+    for (var i = 1; i < bases.length; i++) {
+        bases[i] = "base" + i;
+        wages[i] = "wages" + i;
+        if (document.getElementById(bases[i]).disabled==false){
+            document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value*document.getElementById("averageNumber-2").value);
+        }else{
+            document.getElementById(bases[i]).value = "0";
+        }
+    }
+
 }

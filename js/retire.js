@@ -149,3 +149,40 @@ function clearForm() {
     document.getElementById("buildYear").value = "1996";
     document.getElementById("buildMonth").value = "1";
 }
+function payMonthChange(){
+    var a=document.getElementById("payMonth-2").value;
+    if (a>=180 && a<192){
+        document.getElementById("wages1").disabled=false;
+        document.getElementById("base1").disabled=false;
+        document.getElementById("wages2").disabled=false;
+        document.getElementById("base2").disabled=false;
+        document.getElementById("wages3").disabled=false;
+        document.getElementById("base3").disabled=false;
+        document.getElementById("wages4").disabled=false;
+        document.getElementById("base4").disabled=false;
+        document.getElementById("wages5").disabled=false;
+        document.getElementById("base5").disabled=false;
+        document.getElementById("wages6").disabled=false;
+        document.getElementById("base6").disabled=false;
+        document.getElementById("wages7").disabled=false;
+        document.getElementById("base7").disabled=false;
+        document.getElementById("wages8").disabled=false;
+        document.getElementById("base8").disabled=false;
+        document.getElementById("wages9").disabled=false;
+        document.getElementById("base9").disabled=false;
+        document.getElementById("wages10").disabled=false;
+        document.getElementById("base10").disabled=false;
+        document.getElementById("wages11").disabled=false;
+        document.getElementById("base11").disabled=false;
+        document.getElementById("wages12").disabled=false;
+        document.getElementById("base12").disabled=false;
+        document.getElementById("wages13").disabled=false;
+        document.getElementById("base13").disabled=false;
+        document.getElementById("wages14").disabled=false;
+        document.getElementById("base14").disabled=false;
+        document.getElementById("wages15").disabled=false;
+        document.getElementById("base15").disabled=false;
+    }else {
+        document.getElementById("wages1").disabled=true;
+    }
+}

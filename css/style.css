@@ -1,12 +1,12 @@
-@font-face {
-    font-family: "Raphaelicons";
-    src: url('fonts/raphaelicons-webfont.eot') format('eot'),
-    url('fonts/raphaelicons-webfont.ttf') format('truetype'),
-    url('fonts/raphaelicons-webfont.woff') format('woff'),
-    url('fonts/raphaelicons-webfont.svg') format('svg');
+/*@font-face {
+    font-family: "glyphicons-halflings-regular";
+    src: url('../bootstrap/fonts/glyphicons-halflings-regular.eot') format('eot'),
+    url('../bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+    url('../bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'),
+    url('../bootstrap/fonts/glyphicons-halflings-regular.svg') format('svg');
     font-weight: normal;
     font-style: normal;
-}
+}*/
 
 body {
     font-family: Georgia, Serif;
@@ -236,4 +236,12 @@ a {
 #st-control-4:checked ~ .st-scroll #st-panel-4 h2,
 #st-control-5:checked ~ .st-scroll #st-panel-5 h2 {
 
+}
+
+#st-panel-2 table tr th,
+#st-panel-2 table tr td,
+#st-panel-2 table tr td input
+{
+    width: 100px;
+    text-align: center;
 }

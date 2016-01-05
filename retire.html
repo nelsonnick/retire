@@ -68,15 +68,14 @@
                 <input type="number" min="180" max="540" id="payMonth-2" value="180" onchange="payMonthChange()"/>
                 <br/>
                 <span>社平工资</span>
-                <input type="radio" name="wages-set" checked="checked" onclick="fixed()">固定不变：<input type="number" min="0"  max="99999" placeholder="初始社平" value="0" id="wagesA" onchange="fixedValue()" onclick="fixedValue()"/>
-                <input type="radio" name="wages-set" onclick="ratios()">等比增长：<input type="number" min="0" max="99999" placeholder="初始社平" value="0"  id="wagesB" disabled="true" onchange="ratiosValue()" onclick="ratiosValue()"/><input type="number" min="0" max="1" placeholder="比例" value="0.00"  id="ratios" disabled="true" onchange="ratiosValue()" onclick="ratiosValue()" step="0.01"/>
-                <input type="radio" name="wages-set" onclick="differ()">等差增长：<input type="number" min="0" max="99999" placeholder="初始工资" value="0"  id="wagesC" disabled="true" onchange="differValue()" onclick="differValue()"/><input type="number" min="0" max="1000" placeholder="差额" value="0"  id="differ" disabled="true" onchange="differValue()" onclick="differValue()"/>
-                <input type="radio" name="wages-set" onclick="manual()">手动输入
+                <input type="radio" name="wages-set" id="radio1" onclick="fixed()" checked="checked" >固定不变：<input type="number" min="0"  max="99999" placeholder="初始社平" value="0" id="wagesA" onchange="fixedValue()" onclick="fixedValue()"/>
+                <input type="radio" name="wages-set" id="radio2" onclick="ratios()">等比增长：<input type="number" min="0" max="99999" placeholder="初始社平" value="0"  id="wagesB" disabled="true" onchange="ratiosValue()" onclick="ratiosValue()"/><input type="number" min="0" max="1" placeholder="比例" value="0.00"  id="ratios" disabled="true" onchange="ratiosValue()" onclick="ratiosValue()" step="0.01"/>
+                <input type="radio" name="wages-set" id="radio3" onclick="differ()">等差增长：<input type="number" min="0" max="99999" placeholder="初始工资" value="0"  id="wagesC" disabled="true" onchange="differValue()" onclick="differValue()"/><input type="number" min="0" max="1000" placeholder="差额" value="0"  id="differ" disabled="true" onchange="differValue()" onclick="differValue()"/>
+                <input type="radio" name="wages-set" id="radio4" onclick="manual()">手动输入
                 <br/>
                 <span>缴费基数</span>
-                <input type="radio" name="averageNumber-set" checked="checked" onclick="base()"/>固定指数
-                <input type="number" min="0.600" max="3.000" id="averageNumber-2" value="0.600" step="0.001" onchange="baseValue()" onclick="baseValue()"/>
-                <input type="radio" name="averageNumber-set" onclick="manual2()"/>手动输入
+                <input type="radio" name="averageNumber-set" id="radio5" onclick="base()" checked="checked" />固定指数<input type="number" min="0.600" max="3.000" id="averageNumber-2" value="0.600" step="0.001" onchange="baseValue()" onclick="baseValue()"/>
+                <input type="radio" name="averageNumber-set" id="radio6" onclick="manual2()"/>手动输入
                 <br/>
                 <div class="container-fluid  table-responsive">
                     <table class="table table-hover table-condensed">
@@ -96,171 +95,170 @@
                         </tr>
                         <tr>
                             <td>第1年</td>
-                            <td><input type="number" id="wages1" placeholder="社平工资" value="0" onchange="wagesChange()" min="0" max="99999" /></td>
-                            <td><input type="number" id="bases1" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages1" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases1" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第2年</td>
-                            <td><input type="number" min="0" id="wages2" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base2" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages2" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases2" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第3年</td>
-                            <td><input type="number" min="0" id="wages3" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base3" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages3" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases3" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第4年</td>
-                            <td><input type="number" min="0" id="wages4" max="99999" placeholder="社平工资"value="0"/></td>
-                            <td><input type="number" min="0" id="base4" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages4" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases4" placeholder="缴费基数" value="0" disabled="true" /></td>
                         </tr>
                         <tr>
                             <td>第5年</td>
-                            <td><input type="number" min="0" id="wages5" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base5" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages5" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases5" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第6年</td>
-                            <td><input type="number" min="0" id="wages6" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base6" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages6" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases6" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第7年</td>
-                            <td><input type="number" min="0" id="wages7" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base7" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages7" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases7" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第8年</td>
-                            <td><input type="number" min="0" id="wages8" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base8" max="99999" placeholder="缴费基数" value="0"/></td>
-                        </tr>
+                            <td><input type="number" id="wages8" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases8" placeholder="缴费基数" value="0" disabled="true" /></td>
                         <tr>
                             <td>第9年</td>
-                            <td><input type="number" min="0" id="wages9" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base9" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages9" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases9" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第10年</td>
-                            <<td><input type="number" min="0" id="wages10" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base10" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages10" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases10" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第11年</td>
-                            <td><input type="number" min="0" id="wages11" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base11" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages11" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases11" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第12年</td>
-                            <td><input type="number" min="0" id="wages12" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base12" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages12" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases12" placeholder="缴费基数" value="0" disabled="true" /></td>
                         </tr>
                         <tr>
                             <td>第13年</td>
-                            <td><input type="number" min="0" id="wages13" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base13" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages13" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases13" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第14年</td>
-                            <td><input type="number" min="0" id="wages14" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base14" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages14" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases14" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第15年</td>
-                            <td><input type="number" min="0" id="wages15" max="99999" placeholder="社平工资" value="0"/></td>
-                            <td><input type="number" min="0" id="base15" max="99999" placeholder="缴费基数" value="0"/></td>
+                            <td><input type="number" id="wages15" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases15" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第16年</td>
-                            <td><input type="number" min="0" id="wages16" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base16" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages16" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases16" placeholder="缴费基数" value="0" disabled="true" /></td>
                         </tr>
                         <tr>
                             <td>第17年</td>
-                            <td><input type="number" min="0" id="wages17" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base17" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages17" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases17" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第18年</td>
-                            <td><input type="number" min="0" id="wages18" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base18" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages18" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases18" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第19年</td>
-                            <td><input type="number" min="0" id="wages19" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base19" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages19" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases19" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第20年</td>
-                            <td><input type="number" min="0" id="wages20" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base20" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages20" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases20" placeholder="缴费基数" value="0" disabled="true" /></td>
                         </tr>
                         <tr>
                             <td>第21年</td>
-                            <td><input type="number" min="0" id="wages21" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base21" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages21" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases21" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第22年</td>
-                            <td><input type="number" min="0" id="wages22" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base22" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages22" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases22" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第23年</td>
-                            <td><input type="number" min="0" id="wages23" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base23" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages23" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases23" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第24年</td>
-                            <td><input type="number" min="0" id="wages24" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base24" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages24" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases24" placeholder="缴费基数" value="0" disabled="true" /></td>
                         </tr>
                         <tr>
                             <td>第25年</td>
-                            <td><input type="number" min="0" id="wages25" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base25" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages25" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases25" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第26年</td>
-                            <td><input type="number" min="0" id="wages26" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base26" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages26" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases26" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第27年</td>
-                            <td><input type="number" min="0" id="wages27" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base27" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages27" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases27" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第28年</td>
-                            <td><input type="number" min="0" id="wages28" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base28" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages28" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases28" placeholder="缴费基数" value="0" disabled="true" /></td>
                         </tr>
                         <tr>
                             <td>第29年</td>
-                            <td><input type="number" min="0" id="wages29" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base29" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages29" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases29" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第30年</td>
-                            <td><input type="number" min="0" id="wages30" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base30" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages30" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases30" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第31年</td>
-                            <td><input type="number" min="0" id="wages31" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base31" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages31" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases31" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第32年</td>
-                            <td><input type="number" min="0" id="wages32" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base32" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages32" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases32" placeholder="缴费基数" value="0" disabled="true" /></td>
                         </tr>
                         <tr>
                             <td>第33年</td>
-                            <td><input type="number" min="0" id="wages33" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base33" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages33" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases33" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第34年</td>
-                            <td><input type="number" min="0" id="wages34" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base34" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages34" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases34" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第35年</td>
-                            <td><input type="number" min="0" id="wages35" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base35" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages35" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases35" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第36年</td>
-                            <td><input type="number" min="0" id="wages36" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base36" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages36" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases36" placeholder="缴费基数" value="0" disabled="true" /></td>
                         </tr>
                         <tr>
                             <td>第37年</td>
-                            <td><input type="number" min="0" id="wages37" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base37" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages37" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases37" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第38年</td>
-                            <td><input type="number" min="0" id="wages38" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base38" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages38" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases38" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第39年</td>
-                            <td><input type="number" min="0" id="wages39" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base39" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages39" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases39" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第40年</td>
-                            <td><input type="number" min="0" id="wages40" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base40" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages40" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases40" placeholder="缴费基数" value="0" disabled="true" /></td>
                         </tr>
                         <tr>
                             <td>第41年</td>
-                            <td><input type="number" min="0" id="wages41" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base41" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages41" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases41" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第42年</td>
-                            <td><input type="number" min="0" id="wages42" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base42" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages42" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases42" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第43年</td>
-                            <td><input type="number" min="0" id="wages43" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base43" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages43" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases43" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第44年</td>
-                            <td><input type="number" min="0" id="wages44" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base44" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages44" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases44" placeholder="缴费基数" value="0" disabled="true" /></td>
                         </tr>
                         <tr>
                             <td>第45年</td>
-                            <td><input type="number" min="0" id="wages45" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base45" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages45" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases45" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第46年</td>
-                            <td><input type="number" min="0" id="wages46" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base46" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages46" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases46" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第47年</td>
-                            <td><input type="number" min="0" id="wages47" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base47" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages47" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases47" placeholder="缴费基数" value="0" disabled="true" /></td>
                             <td>第48年</td>
-                            <td><input type="number" min="0" id="wages48" max="99999" placeholder="社平工资" disabled="true" value="0"/></td>
-                            <td><input type="number" min="0" id="base48" max="99999" placeholder="缴费基数" disabled="true" value="0"/></td>
+                            <td><input type="number" id="wages48" placeholder="社平工资" value="0" disabled="true" onchange="wagesChange()" min="0" max="99999" /></td>
+                            <td><input type="number" id="bases48" placeholder="缴费基数" value="0" disabled="true" /></td>
                         </tr>
                     </table>
                 </div>

@@ -156,28 +156,53 @@ function payMonthChange() {
 
     for (var i = 1; i < bases.length; i++) {
         wages[i] = "wages" + i;
-        document.getElementById(wages[i]).value = "0";
-        bases[i] = "base" + i;
-        document.getElementById(bases[i]).value = "0";
+        bases[i] = "bases" + i;
+        /*document.getElementById(wages[i]).value = "0";
+        document.getElementById(bases[i]).value = "0";*/
     }
-    if (a < 15 || a > 48) {
+    if (document.getElementById("radio4").checked==true){
+        if (a < 15 || a > 48) {
+            for (var i = 1; i < wages.length; i++) {
+                document.getElementById(wages[i]).disabled = true;
+            }
+        } else {
+            for (var i = 1; i < Math.ceil(parseFloat(a)) + 1; i++) {
+                document.getElementById(wages[i]).disabled = false;
+            }
+            for (var i = Math.ceil(parseFloat(a)) + 2; i < wages.length; i++) {
+                document.getElementById(wages[i]).disabled = true;
+            }
+        }
+    }else{
         for (var i = 1; i < wages.length; i++) {
             document.getElementById(wages[i]).disabled = true;
-            document.getElementById(bases[i]).disabled = true;
         }
-    } else {
-        for (var i = 1; i < Math.ceil(parseFloat(a)) + 1; i++) {
-            document.getElementById(wages[i]).disabled = false;
-            document.getElementById(bases[i]).disabled = false;
+    }
+
+    if (document.getElementById("radio6").checked==true){
+        if (a < 15 || a > 48) {
+            for (var i = 1; i < bases.length; i++) {
+                document.getElementById(bases[i]).disabled = true;
+            }
+        } else {
+            for (var i = 1; i < Math.ceil(parseFloat(a)) + 1; i++) {
+                document.getElementById(bases[i]).disabled = false;
+            }
+            for (var i = Math.ceil(parseFloat(a)) + 2; i < bases.length; i++) {
+                document.getElementById(bases[i]).disabled = true;
+            }
         }
-        for (var i = Math.ceil(parseFloat(a)) + 2; i < wages.length; i++) {
-            document.getElementById(wages[i]).disabled = true;
+    }else{
+        for (var i = 1; i < bases.length; i++) {
             document.getElementById(bases[i]).disabled = true;
         }
     }
+
+
+
 }
 function fixed() {
-    payMonthChange()
+    payMonthChange();
     document.getElementById("wagesA").disabled = false;
     document.getElementById("wagesB").disabled = true;
     document.getElementById("wagesC").disabled = true;
@@ -196,18 +221,21 @@ function fixed() {
         } else {
             document.getElementById(wages[i]).value = "0";
         }
+        document.getElementById(wages[i]).disabled=true;
     }
     var bases = new Array(49);
     for (var i = 1; i < bases.length; i++) {
-        bases[i] = "base" + i;
+        bases[i] = "bases" + i;
         if (document.getElementById(bases[i]).disabled == false) {
             document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value * document.getElementById("averageNumber-2").value);
         } else {
             document.getElementById(bases[i]).value = "0";
         }
+        document.getElementById(bases[i]).disabled=true;
     }
 }
 function fixedValue() {
+    payMonthChange();
     var wages = new Array(49);
     for (var i = 1; i < wages.length; i++) {
         wages[i] = "wages" + i;
@@ -216,18 +244,21 @@ function fixedValue() {
         } else {
             document.getElementById(wages[i]).value = "0";
         }
+        document.getElementById(wages[i]).disabled=true;
     }
     var bases = new Array(49);
     for (var i = 1; i < bases.length; i++) {
-        bases[i] = "base" + i;
+        bases[i] = "bases" + i;
         if (document.getElementById(bases[i]).disabled == false) {
             document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value * document.getElementById("averageNumber-2").value);
         } else {
             document.getElementById(bases[i]).value = "0";
         }
+        document.getElementById(bases[i]).disabled=true;
     }
 }
 function ratios() {
+    payMonthChange();
     document.getElementById("wagesA").disabled = true;
     document.getElementById("wagesB").disabled = false;
     document.getElementById("wagesC").disabled = true;
@@ -252,15 +283,19 @@ function ratios() {
     }
     var bases = new Array(49);
     for (var i = 1; i < bases.length; i++) {
-        bases[i] = "base" + i;
+        bases[i] = "bases" + i;
+        wages[i] = "wages" + i;
         if (document.getElementById(bases[i]).disabled == false) {
             document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value * document.getElementById("averageNumber-2").value);
         } else {
             document.getElementById(bases[i]).value = "0";
         }
+        document.getElementById(wages[i]).disabled=true;
+        document.getElementById(bases[i]).disabled=true;
     }
 }
 function ratiosValue() {
+    payMonthChange();
     var wages = new Array(49);
     wages[1] = "wages1";
     document.getElementById("wages1").value = document.getElementById("wagesB").value;
@@ -275,15 +310,19 @@ function ratiosValue() {
     }
     var bases = new Array(49);
     for (var i = 1; i < bases.length; i++) {
-        bases[i] = "base" + i;
+        bases[i] = "bases" + i;
+        wages[i] = "wages" + i;
         if (document.getElementById(bases[i]).disabled == false) {
             document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value * document.getElementById("averageNumber-2").value);
         } else {
             document.getElementById(bases[i]).value = "0";
         }
+        document.getElementById(wages[i]).disabled=true;
+        document.getElementById(bases[i]).disabled=true;
     }
 }
 function differ() {
+    payMonthChange();
     document.getElementById("wagesA").disabled = true;
     document.getElementById("wagesB").disabled = true;
     document.getElementById("wagesC").disabled = false;
@@ -309,15 +348,19 @@ function differ() {
     }
     var bases = new Array(49);
     for (var i = 1; i < bases.length; i++) {
-        bases[i] = "base" + i;
+        bases[i] = "bases" + i;
+        wages[i] = "wages" + i;
         if (document.getElementById(bases[i]).disabled == false) {
             document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value * document.getElementById("averageNumber-2").value);
         } else {
             document.getElementById(bases[i]).value = "0";
         }
+        document.getElementById(wages[i]).disabled=true;
+        document.getElementById(bases[i]).disabled=true;
     }
 }
 function differValue() {
+    payMonthChange();
     var wages = new Array(49);
     wages[1] = "wages1";
     document.getElementById("wages1").value = document.getElementById("wagesC").value;
@@ -331,15 +374,19 @@ function differValue() {
     }
     var bases = new Array(49);
     for (var i = 1; i < bases.length; i++) {
-        bases[i] = "base" + i;
+        bases[i] = "bases" + i;
+        wages[i] = "wages" + i;
         if (document.getElementById(bases[i]).disabled == false) {
             document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value * document.getElementById("averageNumber-2").value);
         } else {
             document.getElementById(bases[i]).value = "0";
         }
+        document.getElementById(wages[i]).disabled=true;
+        document.getElementById(bases[i]).disabled=true;
     }
 }
 function manual() {
+    payMonthChange();
     document.getElementById("wagesA").disabled = true;
     document.getElementById("wagesB").disabled = true;
     document.getElementById("wagesC").disabled = true;
@@ -353,24 +400,36 @@ function manual() {
     document.getElementById("differ").value = "0";
     var wages = new Array(49);
     var bases = new Array(49);
-    for (var i = 1; i < bases.length; i++) {
-        wages[i] = "wages" + i;
-        document.getElementById(wages[i]).value = "0";
-        bases[i] = "base" + i;
-        if (document.getElementById(bases[i]).disabled == false) {
-            document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value * document.getElementById("averageNumber-2").value);
-        } else {
+    if (document.getElementById("radio5").checked==true){
+        for (var i = 1; i < bases.length; i++) {
+            wages[i] = "wages" + i;
+            document.getElementById(wages[i]).value = "0";
+            bases[i] = "bases" + i;
+            if (document.getElementById(bases[i]).disabled == false) {
+                document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value * document.getElementById("averageNumber-2").value);
+            } else {
+                document.getElementById(bases[i]).value = "0";
+            }
+        }
+    }
+    if (document.getElementById("radio6").checked==true){
+        for (var i = 1; i < bases.length; i++) {
+            wages[i] = "wages" + i;
+            document.getElementById(wages[i]).value = "0";
+            bases[i] = "bases" + i;
             document.getElementById(bases[i]).value = "0";
         }
     }
+
 }
 function base() {
+    payMonthChange();
     document.getElementById("averageNumber-2").disabled = false;
     var wages = new Array(49);
     var bases = new Array(49);
 
     for (var i = 1; i < bases.length; i++) {
-        bases[i] = "base" + i;
+        bases[i] = "bases" + i;
         wages[i] = "wages" + i;
         if (document.getElementById(bases[i]).disabled == false) {
             document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value * document.getElementById("averageNumber-2").value);
@@ -380,6 +439,7 @@ function base() {
     }
 }
 function baseValue() {
+    payMonthChange();
     var wages = new Array(49);
     var bases = new Array(49);
 
@@ -394,5 +454,21 @@ function baseValue() {
     }
 }
 function wagesChange(){
+    payMonthChange();
+    var wages = new Array(49);
+    var bases = new Array(49);
+
+    for (var i = 1; i < bases.length; i++) {
+        wages[i] = "wages" + i;
+        bases[i] = "bases" + i;
+        document.getElementById(bases[i]).min=document.getElementById(wages[i]).value*0.6;
+        document.getElementById(bases[i]).max=document.getElementById(wages[i]).value*3;
+        document.getElementById(bases[i]).value=document.getElementById(wages[i]).value*0.6;
+    }
+}
+function manual2(){
+    payMonthChange();
+    document.getElementById("averageNumber-2").disabled = true;
+    document.getElementById("averageNumber-2").value = "0";
 
 }

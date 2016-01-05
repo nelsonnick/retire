@@ -72,6 +72,7 @@
                 <input type="radio" name="wages-set" id="radio2" onclick="ratios()">等比增长：<input type="number" min="0" max="99999" placeholder="初始社平" value="0"  id="wagesB" disabled="true" onchange="ratiosValue()" onclick="ratiosValue()"/><input type="number" min="0" max="1" placeholder="比例" value="0.00"  id="ratios" disabled="true" onchange="ratiosValue()" onclick="ratiosValue()" step="0.01"/>
                 <input type="radio" name="wages-set" id="radio3" onclick="differ()">等差增长：<input type="number" min="0" max="99999" placeholder="初始工资" value="0"  id="wagesC" disabled="true" onchange="differValue()" onclick="differValue()"/><input type="number" min="0" max="1000" placeholder="差额" value="0"  id="differ" disabled="true" onchange="differValue()" onclick="differValue()"/>
                 <input type="radio" name="wages-set" id="radio4" onclick="manual()">手动输入
+                <button id="realData" onclick="realData()" disabled="true" onclick="simpleCalculate()">以1996年以后济南市真实数据录入</button>
                 <br/>
                 <span>缴费基数</span>
                 <input type="radio" name="averageNumber-set" id="radio5" onclick="base()" checked="checked" />固定指数<input type="number" min="0.600" max="3.000" id="averageNumber-2" value="0.600" step="0.001" onchange="baseValue()" onclick="baseValue()"/>

@@ -501,5 +501,5 @@ function manual2() {
     payMonthChange();
     document.getElementById("averageNumber-2").disabled = true;
     document.getElementById("averageNumber-2").value = "0.600";
-
+a
 }

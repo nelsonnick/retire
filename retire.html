@@ -57,6 +57,11 @@
                 <br/>
                 <button onclick="simpleCalculate()">计算</button>
                 <button onclick="clearForm()">重置</button>
+                <br/>
+                <div>
+                    缴费基数估算
+                </div>
+                <span>以上数据内容建议根据***进行填写后计算</span>
             </section>
             <section class="st-panel" id="st-panel-2">
                 <div class="st-desc" data-icon="J"></div>
@@ -67,17 +72,15 @@
                 <span>累计缴费月份</span>
                 <input type="number" min="180" max="540" id="payMonth-2" value="180" onchange="payMonthChange()"/>
                 <br/>
-                <span>社平工资</span>
-                <input type="radio" name="wages-set" id="radio1" onclick="fixed()" checked="checked" >固定不变：<input type="number" min="0"  max="99999" placeholder="初始社平" value="0" id="wagesA" onchange="fixedValue()" onclick="fixedValue()"/>
-                <input type="radio" name="wages-set" id="radio2" onclick="ratios()">等比增长：<input type="number" min="0" max="99999" placeholder="初始社平" value="0"  id="wagesB" disabled="true" onchange="ratiosValue()" onclick="ratiosValue()"/><input type="number" min="0" max="1" placeholder="比例" value="0.00"  id="ratios" disabled="true" onchange="ratiosValue()" onclick="ratiosValue()" step="0.01"/>
-                <input type="radio" name="wages-set" id="radio3" onclick="differ()">等差增长：<input type="number" min="0" max="99999" placeholder="初始工资" value="0"  id="wagesC" disabled="true" onchange="differValue()" onclick="differValue()"/><input type="number" min="0" max="1000" placeholder="差额" value="0"  id="differ" disabled="true" onchange="differValue()" onclick="differValue()"/>
-                <input type="radio" name="wages-set" id="radio4" onclick="manual()">手动输入
-                <button id="realData" onclick="realData()" disabled="true" onclick="simpleCalculate()">以1996年以后济南市真实数据录入</button>
-                <br/>
-                <span>缴费基数</span>
-                <input type="radio" name="averageNumber-set" id="radio5" onclick="base()" checked="checked" />固定指数<input type="number" min="0.600" max="3.000" id="averageNumber-2" value="0.600" step="0.001" onchange="baseValue()" onclick="baseValue()"/>
-                <input type="radio" name="averageNumber-set" id="radio6" onclick="manual2()"/>手动输入
-                <br/>
+                <div>
+                    <span>快捷输入(请先填写第一年的社平工资)</span><br/>
+                    社平工资固定不变：<button onclick="">一键录入</button><br/>
+                    社平工资等比增长：<input type="number" placeholder="增长比例" min="0.00" max="1.00" step="0.01"><button onclick="">一键录入</button><br/>
+                    社平工资等差增长：<input type="number" placeholder="增长额度" min="0" max="1000"><button onclick="">一键录入</button><br/>
+                    缴费基数固定不变：<input type="number" min="0.600" max="3.000" step="0.001" value="0.600"><button onclick="">一键录入</button><br/>
+                    <button onclick="">数据重置</button><br/>
+                </div>
+
                 <div class="container-fluid  table-responsive">
                     <table class="table table-hover table-condensed">
                         <tr class="active">
@@ -263,11 +266,38 @@
                         </tr>
                     </table>
                 </div>
+                <div>
+                    <span>退休工资变化情况</span>
+                    <input type="radio" name="retire-set" id="radio7" onclick="" checked="checked" >固定不变
+                    <input type="radio" name="retire-set" id="radio8" onclick="">等比增长：<input type="number" min="0.00" max="1.00" value="0.00"  disabled="true" step="0.01"/>
+                    <input type="radio" name="retire-set" id="radio9" onclick="">等差增长：<input type="number" min="0" max="9999" value="0"  disabled="true" />
+                    <br/>
+                    <span>银行利率</span><input type="number" min="0.00" max="1.00" value="0.00"  disabled="true" step="0.01"/>
 
+                </div>
+                <div>
+                    <p>注意：</p>
+                    <br/>
+                    <p>1、为方便计算，每年变更基数的时间一律取整，忽略视同缴费部分，忽略建立个人账户前的缴费年限。</p>
+                    <br/>
+                    <p>2、由于忽略建立个人账户前的缴费年限，在退休金计算的过程中，无过渡性养老金。</p>
+                    <br/>
+                    <p>3、正常退休、因病退休、特殊工种退休的退休金计算公式一致。</p>
+                    <br/>
+                </div>
             </section>
             <section class="st-panel" id="st-panel-3">
                 <div class="st-desc" data-icon="G"></div>
-                <h2>公式说明</h2>
+                <h2>相关说明</h2>
+                <p>退休金由基础性养老、个人账户养老金、过渡性养老金三部分构成，其中</p>
+                <br/>
+                <p>1、基础养老金=(职工退休上限度全市在岗职工月平均工资+本人指数化月平均工资)/2*缴费年限*1%</p>
+                <br/>
+                <p>2、个人账户养老金=个人账户存储额/计发月份</p>
+                <br/>
+                <p>3、过渡性养老金=本人指数化月平均工资*1.3%*缴费年限(建立个人账户前的缴费年限，济南市为1996年1月)</p>
+                <br/>
+
             </section>
             <section class="st-panel" id="st-panel-4">
                 <div class="st-desc" data-icon="X"></div>
@@ -276,13 +306,27 @@
             <section class="st-panel" id="st-panel-5">
                 <div class="st-desc" data-icon="J"></div>
                 <h2>计算结果</h2>
-                <p id="basicMoney">基础养老金=(职工退休上限度全市在岗职工月平均工资+本人指数化月平均工资)/2*缴费年限*1%</p>
+                <p>平均指数</p>
                 <br/>
-                <p id="limboMoney">过渡性养老金=本人指数化月平均工资*1.3%*缴费年限(建立个人账户前的缴费年限)</p>
+                <p>缴费年限</p>
                 <br/>
-                <p id="accountMoney">个人账户养老金=个人账户存储额/计发月份</p>
+                <p>计发月份</p>
                 <br/>
-                <p id="totalMoney">退休金=基础养老金+过渡性养老金+个人账户养老金</p>
+                <p>个人账户存储额</p>
+                <br/>
+                <p>累计缴纳金额</p>
+                <br/>
+                <p>基础养老金</p>
+                <br/>
+                <p>个人账户养老金</p>
+                <br/>
+                <p>过渡性养老金</p>
+                <br/>
+                <p>退休金总计</p>
+                <br/>
+                <p>收回成本时间</p>
+                <br/>
+                <p>假定不缴纳养老保险，将所有钱存入银行的收益</p>
             </section>
         </div>
     </div>

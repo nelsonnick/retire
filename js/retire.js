@@ -123,7 +123,8 @@ function simpleCalculate() {
     var c = parseFloat((latelyWages * averageNumber * 0.013 * difference / 12)).toFixed(3);
     var d = (parseFloat(a) + parseFloat(b)).toFixed(3);
     var e = (parseFloat(a) + parseFloat(b) + parseFloat(c)).toFixed(3);
-
+    document.getElementById("st-control-5").checked="true";
+/*
     basicMoney.innerHTML = "基础养老金=(职工退休上限度全市在岗职工月平均工资+本人指数化月平均工资)/2*缴费年限*1%:" + a + "元";
     accountMoney.innerHTML = "个人账户养老金=个人账户存储额/计发月份:" + b + "元";
     if (build > work) {
@@ -134,6 +135,7 @@ function simpleCalculate() {
         limboMoney.innerHTML = "过渡性养老金=本人指数化月平均工资*1.3%*缴费年限(建立个人账户前的缴费年限):" + 0.000 + "元";
         totalMoney.innerHTML = "退休金=基础养老金+过渡性养老金+个人账户养老金:" + d + "元";
     }
+    */
 }
 function clearForm() {
     document.getElementById("limboMoney").innerHTML = "过渡性养老金=本人指数化月平均工资*1.3%*缴费年限(建立个人账户前的缴费年限)";
@@ -424,34 +426,6 @@ function manual() {
         wagesChange();
     }
 
-}
-function realData() {
-    document.getElementById("wages1").value = "488";
-    document.getElementById("wages2").value = "586";
-    document.getElementById("wages3").value = "658";
-    document.getElementById("wages4").value = "667";
-    document.getElementById("wages5").value = "676";
-    document.getElementById("wages6").value = "733";
-    document.getElementById("wages7").value = "820";
-    document.getElementById("wages8").value = "978";
-    document.getElementById("wages9").value = "1080";
-    document.getElementById("wages10").value = "1255";
-    document.getElementById("wages11").value = "1377";
-    document.getElementById("wages12").value = "1586";
-    document.getElementById("wages13").value = "1898";
-    document.getElementById("wages14").value = "2194";
-    document.getElementById("wages15").value = "2491";
-    document.getElementById("wages16").value = "2592";
-    document.getElementById("wages17").value = "2953";
-    document.getElementById("wages18").value = "3349";
-    document.getElementById("wages19").value = "3873";
-    document.getElementById("wages20").value = "4376";
-    var wages = new Array(49);
-    for (var i = 21; i < wages.length; i++) {
-        wages[i] = "wages" + i;
-        document.getElementById(wages[i]).value = "0";
-    }
-    wagesChange();
 }
 function base() {
     payMonthChange();

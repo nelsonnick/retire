@@ -190,6 +190,7 @@ function payMonthChange() {
         }
     }
 }
+
 function firstStep(){
     document.getElementById("wages1").value = document.getElementById("1st").value;
     document.getElementById("1st").value="0";

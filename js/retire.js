@@ -120,39 +120,41 @@ function calculate_A() {
     var c = parseFloat((latelyWages_A * averageNumber_A * 0.013 * difference / 12)).toFixed(3);
     var d = (parseFloat(a) + parseFloat(b)).toFixed(3);
     var e = (parseFloat(a) + parseFloat(b) + parseFloat(c)).toFixed(3);
-    var f=(parseFloat(payMonth_A /12)).toFixed(3);
+    var f = (parseFloat(payMonth_A / 12)).toFixed(3);
 
-    document.getElementById("basicMoney").innerHTML = "基础养老金:" + a + "元";
-    document.getElementById("accountMoney").innerHTML = "个人账户养老金:" + b + "元";
-    document.getElementById("averageNumber").innerHTML="平均指数:"+averageNumber_A;
-    document.getElementById("calculateMonth").innerHTML="计发月数:"+calculateMonth_A;
-    document.getElementById("perMoney").innerHTML="个人账户存储额:"+perMoney_A+ "元";
-    document.getElementById("payMoney").innerHTML="累计缴纳金额：未设定";
-    document.getElementById("payYear").innerHTML = "缴费年限:" + f + "年";
-    document.getElementById("govMoney").innerHTML = "计入社会统筹金额:未设定";
+    document.getElementById("basicMoney").innerHTML = a + "元";
+    document.getElementById("accountMoney").innerHTML = b + "元";
+    document.getElementById("averageNumber").innerHTML = averageNumber_A;
+    document.getElementById("calculateMonth").innerHTML = calculateMonth_A;
+    document.getElementById("perMoney").innerHTML = perMoney_A + "元";
+    document.getElementById("payMoney").innerHTML = "未设定";
+    document.getElementById("payYear").innerHTML = f + "年";
+    document.getElementById("govMoney").innerHTML = "未设定";
+    document.getElementById("returnYear").innerHTML = "无法计算";
     if (build > work) {
-        document.getElementById("limboMoney").innerHTML = "过渡性养老金:" + c + "元";
-        document.getElementById("totalMoney").innerHTML = "退休金:" + e + "元";
+        document.getElementById("limboMoney").innerHTML = c + "元";
+        document.getElementById("totalMoney").innerHTML = e + "元";
     }
     else {
-        document.getElementById("limboMoney").innerHTML = "过渡性养老金:" + 0.000 + "元";
-        document.getElementById("totalMoney").innerHTML = "退休金:" + d + "元";
+        document.getElementById("limboMoney").innerHTML = 0.000 + "元";
+        document.getElementById("totalMoney").innerHTML = d + "元";
     }
 
 
-    document.getElementById("st-control-5").checked="true";
+    document.getElementById("st-control-5").checked = "true";
 }
 function clear_A() {
-    document.getElementById("basicMoney").innerHTML = "基础养老金:0元";
-    document.getElementById("limboMoney").innerHTML = "过渡性养老金:0元";
-    document.getElementById("accountMoney").innerHTML = "个人账户养老金:0元";
-    document.getElementById("totalMoney").innerHTML = "退休金:0元";
-    document.getElementById("latelyWages").innerHTML="平均指数:0";
-    document.getElementById("calculateMonth").innerHTML="计发月数:0";
-    document.getElementById("perMoney").innerHTML="个人账户存储额:0元";
-    document.getElementById("payMoney").innerHTML="累计缴纳金额：未设定";
-    document.getElementById("payYear").innerHTML = "缴费年限:0年";
-    document.getElementById("govMoney").innerHTML = "计入社会统筹金额:0元";
+    document.getElementById("basicMoney").innerHTML = "0元";
+    document.getElementById("limboMoney").innerHTML = "0元";
+    document.getElementById("accountMoney").innerHTML = "0元";
+    document.getElementById("totalMoney").innerHTML = "0元";
+    document.getElementById("averageNumber").innerHTML = "0";
+    document.getElementById("calculateMonth").innerHTML = "0";
+    document.getElementById("perMoney").innerHTML = "0元";
+    document.getElementById("payMoney").innerHTML = "未设定";
+    document.getElementById("payYear").innerHTML = "0年";
+    document.getElementById("govMoney").innerHTML = "0元";
+    document.getElementById("returnYear").innerHTML = "0年";
 
 
     document.getElementById("retireAge_A").value = "50";
@@ -165,7 +167,6 @@ function clear_A() {
     document.getElementById("buildYear").value = "1996";
     document.getElementById("buildMonth").value = "1";
 }
-
 function calculate_B() {
     var retireAge_B = document.getElementById("retireAge_B").value;
     var payMonth_B = document.getElementById("payMonth_B").value;
@@ -173,53 +174,56 @@ function calculate_B() {
     var bases = new Array(49);
     var bw = new Array(49);
     var number;
-    var total=0;
-    var perMoney_B=0;
-    var payMoney_B=0;
-    var govMoney_B=0;
+    var total = 0;
+    var perMoney_B = 0;
+    var payMoney_B = 0;
+    var govMoney_B = 0;
     for (var i = 1; i < bases.length; i++) {
-        if (parseInt(document.getElementById(wages[i]).value)==0){
-            number=i;
-            break;
-        }
         wages[i] = "wages" + i;
         bases[i] = "bases" + i;
-        bw[i]=document.getElementById(bases[i]).value/document.getElementById(wages[i]).value;
+        if (parseInt(document.getElementById(wages[i]).value) == 0) {
+            number = i;
+            break;
+        }
+        bw[i] = document.getElementById(bases[i]).value / document.getElementById(wages[i]).value;
     }
-    for(var i=1;i<number;i++){
-        total=parseFloat(total).toFixed(3)+bw[i];
-        perMoney_B=parseFloat(perMoney_B).toFixed(2)+document.getElementById(bases[i]).value*0.08;
-        payMoney_B=parseFloat(payMoney_B).toFixed(2)+document.getElementById(bases[i]).value*0.2;
-        govMoney_B=parseFloat(govMoney_B).toFixed(2)+document.getElementById(bases[i]).value*0.12;
+    for (var i = 1; i < number; i++) {
+        total = (parseFloat(total) + parseFloat(bw[i])).toFixed(3);
+
+        /*
+         console.log(payMoney_B);
+         */
+        perMoney_B = (parseFloat(perMoney_B) + document.getElementById(bases[i]).value * 0.08).toFixed(2);
+        payMoney_B = (parseFloat(payMoney_B) + document.getElementById(bases[i]).value * 0.2).toFixed(2);
+        govMoney_B = (parseFloat(govMoney_B) + document.getElementById(bases[i]).value * 0.12).toFixed(2);
 
     }
-    var averageNumber_B=(total/(parseInt(number)-1)).toFixed(3);
+    var averageNumber_B = (total / (parseInt(number) - 1)).toFixed(3);
     var calculateMonth_B = getCalculateMonth(retireAge_B);
-    var latelyWages_B=wages[parseInt(number)-1];
+    var latelyWages_B = document.getElementById(wages[parseInt(number) - 1]).value;
 
 
     var a = parseFloat(((parseInt(latelyWages_B) + latelyWages_B * averageNumber_B) / 2 * payMonth_B / 12 * 0.01)).toFixed(3);
     var b = parseFloat((perMoney_B / calculateMonth_B)).toFixed(3);
     var c = (parseFloat(a) + parseFloat(b)).toFixed(3);
-    var d=(parseFloat(payMonth_B /12)).toFixed(3);
+    var d = (parseFloat(payMonth_B / 12)).toFixed(3);
 
 
-
-
-    document.getElementById("basicMoney").innerHTML = "基础养老金:" + a + "元";
-    document.getElementById("accountMoney").innerHTML = "个人账户养老金:" + b + "元";
-    document.getElementById("latelyWages").innerHTML="平均指数:"+averageNumber_B;
-    document.getElementById("calculateMonth").innerHTML="计发月数:"+calculateMonth_B;
-    document.getElementById("payMoney").innerHTML="累计缴纳金额："+ payMoney_B + "元";
-    document.getElementById("govMoney").innerHTML = "计入社会统筹金额:" + govMoney_B + "元";
-    document.getElementById("perMoney").innerHTML="个人账户存储额:"+perMoney_B+ "元";
-    document.getElementById("payYear").innerHTML = "缴费年限:" + d + "年";
-    document.getElementById("limboMoney").innerHTML = "过渡性养老金:0元";
-    document.getElementById("totalMoney").innerHTML = "退休金:" + c + "元";
-    document.getElementById("st-control-5").checked="true";
+    document.getElementById("basicMoney").innerHTML = a + "元";
+    document.getElementById("accountMoney").innerHTML = b + "元";
+    document.getElementById("averageNumber").innerHTML = averageNumber_B;
+    document.getElementById("calculateMonth").innerHTML = calculateMonth_B;
+    document.getElementById("payMoney").innerHTML = (payMoney_B * 12).toFixed(2) + "元";
+    document.getElementById("govMoney").innerHTML = (govMoney_B * 12).toFixed(2) + "元";
+    document.getElementById("perMoney").innerHTML = (perMoney_B * 12).toFixed(2) + "元";
+    document.getElementById("payYear").innerHTML = d + "年";
+    document.getElementById("limboMoney").innerHTML = "0元";
+    document.getElementById("totalMoney").innerHTML = c + "元";
+    document.getElementById("returnYear").innerHTML = (payMoney_B / c).toFixed(2) + "年";
+    document.getElementById("st-control-5").checked = "true";
 }
 
-function clear_B(){
+function clear_B() {
     var wages = new Array(49);
     var bases = new Array(49);
     for (var i = 1; i < bases.length; i++) {
@@ -228,20 +232,23 @@ function clear_B(){
         document.getElementById(wages[i]).value = "0";
         document.getElementById(bases[i]).value = "0";
     }
-    document.getElementById("wagesRatios").value="0.00";
-    document.getElementById("wagesDiffer").value="0";
-    document.getElementById("averageNumber_B").value="0.600";
+    document.getElementById("wagesRatios").value = "0.00";
+    document.getElementById("wagesDiffer").value = "0";
+    document.getElementById("averageNumber_B").value = "0.600";
+    document.getElementById("retireAge_B").value = "50";
+    document.getElementById("payMonth_B").value = "180";
 
-    document.getElementById("basicMoney").innerHTML = "基础养老金:0元";
-    document.getElementById("limboMoney").innerHTML = "过渡性养老金:0元";
-    document.getElementById("accountMoney").innerHTML = "个人账户养老金:0元";
-    document.getElementById("totalMoney").innerHTML = "退休金:0元";
-    document.getElementById("latelyWages").innerHTML="平均指数:0";
-    document.getElementById("calculateMonth").innerHTML="计发月数:0";
-    document.getElementById("perMoney").innerHTML="个人账户存储额:0元";
-    document.getElementById("payMoney").innerHTML="累计缴纳金额：未设定";
-    document.getElementById("payYear").innerHTML = "缴费年限:0年";
-    document.getElementById("govMoney").innerHTML = "计入社会统筹金额:0元";
+    document.getElementById("basicMoney").innerHTML = "0元";
+    document.getElementById("limboMoney").innerHTML = "0元";
+    document.getElementById("accountMoney").innerHTML = "0元";
+    document.getElementById("totalMoney").innerHTML = "0元";
+    document.getElementById("averageNumber").innerHTML = "0";
+    document.getElementById("calculateMonth").innerHTML = "0";
+    document.getElementById("perMoney").innerHTML = "0元";
+    document.getElementById("payMoney").innerHTML = "未设定";
+    document.getElementById("payYear").innerHTML = "0年";
+    document.getElementById("govMoney").innerHTML = "0元";
+    document.getElementById("returnYear").innerHTML = "0年";
 
     wagesChange();
 }
@@ -271,9 +278,9 @@ function payMonthChange() {
     }
 }
 
-function firstStep(){
+function firstStep() {
     document.getElementById("wages1").value = document.getElementById("1st").value;
-    document.getElementById("1st").value="0";
+    document.getElementById("1st").value = "0";
     $('#myModal2').modal();
 }
 function fixed() {
@@ -287,8 +294,8 @@ function fixed() {
         }
     }
     wagesChange();
-    document.getElementById("wagesRatios").value="0";
-    document.getElementById("wagesDiffer").value="0";
+    document.getElementById("wagesRatios").value = "0";
+    document.getElementById("wagesDiffer").value = "0";
     $('#myModal3').modal();
 }
 
@@ -299,14 +306,14 @@ function ratios() {
         wages[i] = "wages" + i;
         if (document.getElementById(wages[i]).disabled == false) {
             document.getElementById(wages[i]).value =
-                Math.round(parseInt(document.getElementById(wages[i - 1]).value) + document.getElementById(wages[i - 1]).value * parseFloat(document.getElementById("wagesRatios").value).toFixed(2)*0.01);
+                Math.round(parseInt(document.getElementById(wages[i - 1]).value) + document.getElementById(wages[i - 1]).value * parseFloat(document.getElementById("wagesRatios").value).toFixed(2) * 0.01);
         } else {
             document.getElementById(wages[i]).value = "0";
         }
     }
     wagesChange();
-    document.getElementById("wagesRatios").value="0";
-    document.getElementById("wagesDiffer").value="0";
+    document.getElementById("wagesRatios").value = "0";
+    document.getElementById("wagesDiffer").value = "0";
     $('#myModal3').modal();
 }
 
@@ -322,8 +329,8 @@ function differ() {
         }
     }
     wagesChange();
-    document.getElementById("wagesRatios").value="0";
-    document.getElementById("wagesDiffer").value="0";
+    document.getElementById("wagesRatios").value = "0";
+    document.getElementById("wagesDiffer").value = "0";
     $('#myModal3').modal();
 }
 
@@ -340,7 +347,7 @@ function base() {
             document.getElementById(bases[i]).value = "0";
         }
     }
-    document.getElementById("averageNumber_B").value="0.600";
+    document.getElementById("averageNumber_B").value = "0.600";
 }
 
 

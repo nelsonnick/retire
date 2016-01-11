@@ -98,60 +98,128 @@ function getCalculateMonth(retireAge) {
     else
         return "超过设定范围，无法识别";
 }
-function simpleCalculate() {
-    var retireAge = document.getElementById("retireAge").value;
-    var latelyWages = document.getElementById("latelyWages").value;
-    var payMonth = document.getElementById("payMonth").value;
-    var averageNumber = document.getElementById("averageNumber").value;
-    var accountBalance = document.getElementById("accountBalance").value;
+function calculate_A() {
+    var retireAge_A = document.getElementById("retireAge_A").value;
+    var latelyWages_A = document.getElementById("latelyWages_A").value;
+    var payMonth_A = document.getElementById("payMonth_A").value;
+    var averageNumber_A = document.getElementById("averageNumber_A").value;
+    var perMoney_A = document.getElementById("perMoney_A").value;
     var workYear = document.getElementById("workYear").value;
     var workMonth = document.getElementById("workMonth").value;
     var buildYear = document.getElementById("buildYear").value;
     var buildMonth = document.getElementById("buildMonth").value;
-    var basicMoney = document.getElementById("basicMoney");
-    var limboMoney = document.getElementById("limboMoney");
-    var accountMoney = document.getElementById("accountMoney");
-    var totalMoney = document.getElementById("totalMoney");
-    var CalculateMonth = getCalculateMonth(retireAge);
+
+    var calculateMonth_A = getCalculateMonth(retireAge_A);
 
     var work = new Date(workYear, workMonth, "1", "0", "0", "0");
     var build = new Date(buildYear, buildMonth, "1", "0", "0", "0");
     var difference = (build.getYear() - work.getYear()) * 12 + build.getMonth() - work.getMonth();
 
-    var a = parseFloat(((parseInt(latelyWages) + latelyWages * averageNumber) / 2 * payMonth / 12 * 0.01)).toFixed(3);
-    var b = parseFloat((accountBalance / CalculateMonth)).toFixed(3);
-    var c = parseFloat((latelyWages * averageNumber * 0.013 * difference / 12)).toFixed(3);
+    var a = parseFloat(((parseInt(latelyWages_A) + latelyWages_A * averageNumber_A) / 2 * payMonth_A / 12 * 0.01)).toFixed(3);
+    var b = parseFloat((perMoney_A / calculateMonth_A)).toFixed(3);
+    var c = parseFloat((latelyWages_A * averageNumber_A * 0.013 * difference / 12)).toFixed(3);
     var d = (parseFloat(a) + parseFloat(b)).toFixed(3);
     var e = (parseFloat(a) + parseFloat(b) + parseFloat(c)).toFixed(3);
-    document.getElementById("st-control-5").checked="true";
-/*
-    basicMoney.innerHTML = "基础养老金=(职工退休上限度全市在岗职工月平均工资+本人指数化月平均工资)/2*缴费年限*1%:" + a + "元";
-    accountMoney.innerHTML = "个人账户养老金=个人账户存储额/计发月份:" + b + "元";
+    var f=(parseFloat(payMonth_A /12)).toFixed(3);
+
+    document.getElementById("basicMoney").innerHTML = "基础养老金:" + a + "元";
+    document.getElementById("accountMoney").innerHTML = "个人账户养老金:" + b + "元";
+    document.getElementById("averageNumber").innerHTML="平均指数:"+averageNumber_A;
+    document.getElementById("calculateMonth").innerHTML="计发月数:"+calculateMonth_A;
+    document.getElementById("perMoney").innerHTML="个人账户存储额:"+perMoney_A+ "元";
+    document.getElementById("payMoney").innerHTML="累计缴纳金额：未设定";
+    document.getElementById("payYear").innerHTML = "缴费年限:" + f + "年";
+    document.getElementById("govMoney").innerHTML = "计入社会统筹金额:未设定";
     if (build > work) {
-        limboMoney.innerHTML = "过渡性养老金=本人指数化月平均工资*1.3%*缴费年限(建立个人账户前的缴费年限):" + c + "元";
-        totalMoney.innerHTML = "退休金=基础养老金+过渡性养老金+个人账户养老金:" + e + "元";
+        document.getElementById("limboMoney").innerHTML = "过渡性养老金:" + c + "元";
+        document.getElementById("totalMoney").innerHTML = "退休金:" + e + "元";
     }
     else {
-        limboMoney.innerHTML = "过渡性养老金=本人指数化月平均工资*1.3%*缴费年限(建立个人账户前的缴费年限):" + 0.000 + "元";
-        totalMoney.innerHTML = "退休金=基础养老金+过渡性养老金+个人账户养老金:" + d + "元";
+        document.getElementById("limboMoney").innerHTML = "过渡性养老金:" + 0.000 + "元";
+        document.getElementById("totalMoney").innerHTML = "退休金:" + d + "元";
     }
-    */
+
+
+    document.getElementById("st-control-5").checked="true";
 }
-function clearForm() {
-    document.getElementById("limboMoney").innerHTML = "过渡性养老金=本人指数化月平均工资*1.3%*缴费年限(建立个人账户前的缴费年限)";
-    document.getElementById("accountMoney").innerHTML = "个人账户养老金=个人账户存储额/计发月份";
-    document.getElementById("totalMoney").innerHTML = "退休金=基础养老金+过渡性养老金+个人账户养老金";
-    document.getElementById("retireAge").value = "50";
-    document.getElementById("latelyWages").value = "4376";
-    document.getElementById("payMonth").value = "180";
-    document.getElementById("averageNumber").value = "0.600";
-    document.getElementById("accountBalance").value = "0.00";
+function clear_A() {
+    document.getElementById("basicMoney").innerHTML = "基础养老金:0元";
+    document.getElementById("limboMoney").innerHTML = "过渡性养老金:0元";
+    document.getElementById("accountMoney").innerHTML = "个人账户养老金:0元";
+    document.getElementById("totalMoney").innerHTML = "退休金:0元";
+    document.getElementById("latelyWages").innerHTML="平均指数:0";
+    document.getElementById("calculateMonth").innerHTML="计发月数:0";
+    document.getElementById("perMoney").innerHTML="个人账户存储额:0元";
+    document.getElementById("payMoney").innerHTML="累计缴纳金额：未设定";
+    document.getElementById("payYear").innerHTML = "缴费年限:0年";
+    document.getElementById("govMoney").innerHTML = "计入社会统筹金额:0元";
+
+
+    document.getElementById("retireAge_A").value = "50";
+    document.getElementById("latelyWages_A").value = "4376";
+    document.getElementById("payMonth_A").value = "180";
+    document.getElementById("averageNumber_A").value = "0.600";
+    document.getElementById("perMoney_A").value = "0.00";
     document.getElementById("workYear").value = "1980";
     document.getElementById("workMonth").value = "1";
     document.getElementById("buildYear").value = "1996";
     document.getElementById("buildMonth").value = "1";
 }
-function clearData(){
+
+function calculate_B() {
+    var retireAge_B = document.getElementById("retireAge_B").value;
+    var payMonth_B = document.getElementById("payMonth_B").value;
+    var wages = new Array(49);
+    var bases = new Array(49);
+    var bw = new Array(49);
+    var number;
+    var total=0;
+    var perMoney_B=0;
+    var payMoney_B=0;
+    var govMoney_B=0;
+    for (var i = 1; i < bases.length; i++) {
+        if (parseInt(document.getElementById(wages[i]).value)==0){
+            number=i;
+            break;
+        }
+        wages[i] = "wages" + i;
+        bases[i] = "bases" + i;
+        bw[i]=document.getElementById(bases[i]).value/document.getElementById(wages[i]).value;
+    }
+    for(var i=1;i<number;i++){
+        total=parseFloat(total).toFixed(3)+bw[i];
+        perMoney_B=parseFloat(perMoney_B).toFixed(2)+document.getElementById(bases[i]).value*0.08;
+        payMoney_B=parseFloat(payMoney_B).toFixed(2)+document.getElementById(bases[i]).value*0.2;
+        govMoney_B=parseFloat(govMoney_B).toFixed(2)+document.getElementById(bases[i]).value*0.12;
+
+    }
+    var averageNumber_B=(total/(parseInt(number)-1)).toFixed(3);
+    var calculateMonth_B = getCalculateMonth(retireAge_B);
+    var latelyWages_B=wages[parseInt(number)-1];
+
+
+    var a = parseFloat(((parseInt(latelyWages_B) + latelyWages_B * averageNumber_B) / 2 * payMonth_B / 12 * 0.01)).toFixed(3);
+    var b = parseFloat((perMoney_B / calculateMonth_B)).toFixed(3);
+    var c = (parseFloat(a) + parseFloat(b)).toFixed(3);
+    var d=(parseFloat(payMonth_B /12)).toFixed(3);
+
+
+
+
+    document.getElementById("basicMoney").innerHTML = "基础养老金:" + a + "元";
+    document.getElementById("accountMoney").innerHTML = "个人账户养老金:" + b + "元";
+    document.getElementById("latelyWages").innerHTML="平均指数:"+averageNumber_B;
+    document.getElementById("calculateMonth").innerHTML="计发月数:"+calculateMonth_B;
+    document.getElementById("payMoney").innerHTML="累计缴纳金额："+ payMoney_B + "元";
+    document.getElementById("govMoney").innerHTML = "计入社会统筹金额:" + govMoney_B + "元";
+    document.getElementById("perMoney").innerHTML="个人账户存储额:"+perMoney_B+ "元";
+    document.getElementById("payYear").innerHTML = "缴费年限:" + d + "年";
+    document.getElementById("limboMoney").innerHTML = "过渡性养老金:0元";
+    document.getElementById("totalMoney").innerHTML = "退休金:" + c + "元";
+    document.getElementById("st-control-5").checked="true";
+}
+
+function clear_B(){
     var wages = new Array(49);
     var bases = new Array(49);
     for (var i = 1; i < bases.length; i++) {
@@ -162,11 +230,23 @@ function clearData(){
     }
     document.getElementById("wagesRatios").value="0.00";
     document.getElementById("wagesDiffer").value="0";
-    document.getElementById("averageNumber-2").value="0.600";
+    document.getElementById("averageNumber_B").value="0.600";
+
+    document.getElementById("basicMoney").innerHTML = "基础养老金:0元";
+    document.getElementById("limboMoney").innerHTML = "过渡性养老金:0元";
+    document.getElementById("accountMoney").innerHTML = "个人账户养老金:0元";
+    document.getElementById("totalMoney").innerHTML = "退休金:0元";
+    document.getElementById("latelyWages").innerHTML="平均指数:0";
+    document.getElementById("calculateMonth").innerHTML="计发月数:0";
+    document.getElementById("perMoney").innerHTML="个人账户存储额:0元";
+    document.getElementById("payMoney").innerHTML="累计缴纳金额：未设定";
+    document.getElementById("payYear").innerHTML = "缴费年限:0年";
+    document.getElementById("govMoney").innerHTML = "计入社会统筹金额:0元";
+
     wagesChange();
 }
 function payMonthChange() {
-    var a = parseFloat(document.getElementById("payMonth-2").value / 12).toFixed(3);
+    var a = parseFloat(document.getElementById("payMonth_B").value / 12).toFixed(3);
     var wages = new Array(49);
     var bases = new Array(49);
 
@@ -255,12 +335,12 @@ function base() {
         bases[i] = "bases" + i;
         wages[i] = "wages" + i;
         if (document.getElementById(bases[i]).disabled == false) {
-            document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value * document.getElementById("averageNumber-2").value);
+            document.getElementById(bases[i]).value = Math.ceil(document.getElementById(wages[i]).value * document.getElementById("averageNumber_B").value);
         } else {
             document.getElementById(bases[i]).value = "0";
         }
     }
-    document.getElementById("averageNumber-2").value="0";
+    document.getElementById("averageNumber_B").value="0.600";
 }
 
 

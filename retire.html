@@ -55,7 +55,7 @@
             <div class="modal-body">
                 <p>请输入缴费比例：</p><br/>
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="base()">固定不变</button>
-                <input type="number" placeholder="固定比例" id="averageNumber-2" min="0.600" max="3.000" step="0.001"
+                <input type="number" placeholder="固定比例" id="averageNumber_B" min="0.600" max="3.000" step="0.001"
                        value="0.600"><br/>
                 <button type="button" class="btn btn-default" data-dismiss="modal">手动输入</button>
                 <br/>
@@ -81,89 +81,46 @@
             <section class="st-panel" id="st-panel-1">
                 <div class="st-desc" data-icon="H"></div>
                 <h2>精准计算</h2>
-                <div class="container-fluid">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">退休年龄：</label>
-                            <div class="col-sm-2">
-                                <input type="number" class="form-control" min="40" max="70" id="retireAge" value="50"
-                                       size="20"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">上年度社会平均工资：</label>
-                            <div class="col-sm-2">
-                                <input type="number" min="1" id="latelyWages" value="4376" size="20"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">累计缴费月份：</label>
-                            <div class="col-sm-2">
-                                <input type="number" min="180" max="540" id="payMonth" value="180" size="20"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">平均指数：</label>
-                            <div class="col-sm-2">
-                                <input type="number" min="0.600" max="3.000" id="averageNumber" value="0.600"
-                                       step="0.001" size="20"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">个人账户存储额：</label>
-                            <div class="col-sm-2">
-                                <input type="number" min="0.00" id="accountBalance" value="0.00" step="0.01" size="20"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">参加工作时间：</label>
-                            <div class="col-sm-2">
-                                <input type="number" min="1970" max="1995" value="1980" id="workYear"/>年<input
-                                    type="number" min="1"
-                                    max="12"
-                                    value="1"
-                                    id="workMonth"/>月
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">建立个人账户时间：</label>
-                            <div class="col-sm-2">
-                                <input type="number" min="1995" max="1999" value="1996" id="buildYear"/>年<input
-                                    type="number" min="1"
-                                    max="12"
-                                    value="1"
-                                    id="buildMonth"/>月
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-1">
-                                <button type="submit" class="btn btn-success" onclick="simpleCalculate()">计算</button>
-                            </div>
-                            <div class="col-sm-offset-2 col-sm-1">
-                                <button type="reset" class="btn btn-danger" onclick="clearForm()">重置</button>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-
                 <div>
-                    缴费基数估算
+                    退休年龄：
+                    <input type="number" min="40" max="70" id="retireAge_A" value="50" size="20"/>
+                    <br/>
+                    上年度社会平均工资：
+                    <input type="number" min="1" id="latelyWages_A" value="4376" size="20"/>
+                    <br/>
+                    累计缴费月份：
+                    <input type="number" min="180" max="540" id="payMonth_A" value="180" size="20"/>
+                    <br/>
+                    平均指数：
+                    <input type="number" min="0.600" max="3.000" id="averageNumber_A" value="0.600"  step="0.001" size="20"/>
+                    <br/>
+                    个人账户存储额：
+                    <input type="number" min="0.00" id="perMoney_A" value="0.00" step="0.01" size="20"/>
+                    <br/>
+                    参加工作时间：
+                    <input type="number" min="1970" max="1995" value="1980" id="workYear"/>年
+                    <input type="number" min="1" max="12" value="1" id="workMonth"/>月
+                    <br/>
+                    建立个人账户时间：
+                    <input type="number" min="1995" max="1999" value="1996" id="buildYear"/>年
+                    <input type="number" min="1" max="12" value="1" id="buildMonth"/>月
+                    <br/>
+                    <button onclick="calculate_A()">计算</button>
+                    <button onclick="clear_A()">重置</button>
+                    <br/>
+                    <span>以上数据内容建议根据***进行填写后计算</span>
                 </div>
-                <span>以上数据内容建议根据***进行填写后计算</span>
             </section>
             <section class="st-panel" id="st-panel-2">
                 <div class="st-desc" data-icon="J"></div>
                 <h2>缴费估算</h2>
                 <div>
                     <span>退休年龄</span>
-                    <input type="number" min="40" max="70" id="retireAge-2" value="50"/>
+                    <input type="number" min="40" max="70" id="retireAge_B" value="50"/>
                     <span>累计缴费月份</span>
-                    <input type="number" min="180" max="540" id="payMonth-2" value="180" onchange="payMonthChange()"/>
-                    <button onclick="clearData()">计算</button>
-                    <button onclick="clearData()">重置</button>
+                    <input type="number" min="180" max="540" id="payMonth_B" value="180" onchange="payMonthChange()"/>
+                    <button onclick="calculate_B()">计算</button>
+                    <button onclick="clear_B()">重置</button>
                     <button type="button" data-toggle="modal" data-target="#myModal1" onclick="">快速输入社平工资及缴费基数</button>
                 </div>
                 <div class="container-fluid  table-responsive">
@@ -431,27 +388,26 @@
             <section class="st-panel" id="st-panel-5">
                 <div class="st-desc" data-icon="J"></div>
                 <h2>计算结果</h2>
-                <p>平均指数</p>
+                <p id="averageNumber">平均指数:0</p>
                 <br/>
-                <p>缴费年限</p>
+                <p id="payYear">缴费年限:0年</p>
                 <br/>
-                <p>计发月份</p>
+                <p id="calculateMonth">计发月数:0</p>
                 <br/>
-                <p>个人账户存储额</p>
+                <p id="payMoney">累计缴纳金额:0元</p>
                 <br/>
-                <p>累计缴纳金额</p>
+                <p id="govMoney">计入社会统筹金额:0元</p>
                 <br/>
-                <p>基础养老金</p>
+                <p id="perMoney">个人账户存储额:0元</p>
                 <br/>
-                <p>个人账户养老金</p>
+                <p id="basicMoney">基础养老金:0元</p>
                 <br/>
-                <p>过渡性养老金</p>
+                <p id="accountMoney">个人账户养老金:0元</p>
                 <br/>
-                <p>退休金总计</p>
+                <p id="limboMoney">过渡性养老金:0元</p>
                 <br/>
-                <p>收回成本时间</p>
+                <p id="totalMoney">退休金总计:0元</p>
                 <br/>
-                <p>假定不缴纳养老保险，将所有钱存入银行的收益</p>
             </section>
         </div>
     </div>

@@ -77,7 +77,7 @@
         <input type="radio" name="radio-set" id="st-control-2">
         <a href="#st-panel-2">缴费估算</a>
         <input type="radio" name="radio-set" id="st-control-3">
-        <a href="#st-panel-3">公式说明</a>
+        <a href="#st-panel-3">相关说明</a>
         <input type="radio" name="radio-set" id="st-control-4">
         <a href="#st-panel-4">相关数据</a>
         <input type="radio" name="radio-set" id="st-control-5">
@@ -86,54 +86,61 @@
             <section class="st-panel" id="st-panel-1">
                 <div class="st-desc" data-icon="H"></div>
                 <h2>精准计算</h2>
-                <div>
-                    退休年龄：
-                    <input type="number" min="40" max="70" id="retireAge_A" value="50" size="20"/>
-                    <br/>
-                    上年度社会平均工资：
-                    <input type="number" min="1" id="latelyWages_A" value="4376" size="20"/>
-                    <br/>
-                    累计缴费月份：
-                    <input type="number" min="180" max="540" id="payMonth_A" value="180" size="20"/>
-                    <br/>
-                    平均指数：
-                    <input type="number" min="0.600" max="3.000" id="averageNumber_A" value="0.600" step="0.001"
-                           size="20"/>
-                    <br/>
-                    个人账户存储额：
-                    <input type="number" min="0.00" id="perMoney_A" value="0.00" step="0.01" size="20"/>
-                    <br/>
-                    参加工作时间：
-                    <input type="number" min="1970" max="1995" value="1980" id="workYear"/>年
-                    <input type="number" min="1" max="12" value="1" id="workMonth"/>月
-                    <br/>
-                    建立个人账户时间：
-                    <input type="number" min="1995" max="1999" value="1996" id="buildYear"/>年
-                    <input type="number" min="1" max="12" value="1" id="buildMonth"/>月
-                    <br/>
-                    <button onclick="calculate_A()">计算</button>
-                    <button onclick="clear_A()">重置</button>
-                    <br/>
-                    <span>以上数据内容建议根据***进行填写后计算</span>
-                </div>
+                <table>
+                    <tr>
+                        <td><p>退休年龄：</p></td>
+                        <td><p><input type="number" min="40" max="70" id="retireAge_A" value="50" style="width: 135px"/></p></td>
+                    </tr>
+                    <tr>
+                        <td><p>上年度社会平均工资：</p></td>
+                        <td><p><input type="number" min="1" id="latelyWages_A" value="4376" style="width: 135px"/></p></td>
+                    </tr>
+                    <tr>
+                        <td><p>累计缴费月份：</p></td>
+                        <td><p><input type="number" min="180" max="540" id="payMonth_A" value="180"  style="width: 135px"/></p></td>
+                    </tr>
+                    <tr>
+                        <td><p>平均指数：</p></td>
+                        <td><p><input type="number" min="0.600" max="3.000" id="averageNumber_A" value="0.600" step="0.001"  style="width: 135px"/></p></td>
+                    </tr>
+                    <tr>
+                        <td><p>个人账户存储额：</p></td>
+                        <td><p><input type="number" min="0.00" id="perMoney_A" value="0.00" step="0.01"  style="width: 135px"/></p></td>
+                    </tr>
+                    <tr>
+                        <td><p>参加工作时间：</p></td>
+                        <td><p><input type="number" min="1970" max="1995" value="1980" id="workYear" style="width: 60px"/>年
+                            <input type="number" min="1" max="12" value="1" id="workMonth" style="width: 40px"/>月</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>建立个人账户时间：</p></td>
+                        <td><p><input type="number" min="1995" max="1999" value="1996" id="buildYear" style="width: 60px"/>年
+                            <input type="number" min="1" max="12" value="1" id="buildMonth" style="width: 40px"/>月</p></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><p><button onclick="calculate_A()">计算</button><button onclick="clear_A()">重置</button></p></td>
+                    </tr>
+                </table>
             </section>
             <section class="st-panel" id="st-panel-2">
                 <div class="st-desc" data-icon="J"></div>
                 <h2>缴费估算</h2>
-                <div>
-                    <span>退休年龄</span>
-                    <input type="number" min="40" max="70" id="retireAge_B" value="50"/>
-                    <span>累计缴费月份</span>
-                    <input type="number" min="180" max="576" id="payMonth_B" value="180" onchange="payMonthChange()"/>
-                    <button onclick="calculate_B()">计算</button>
-                    <button onclick="clear_B()">重置</button>
-                    <button type="button" data-toggle="modal" data-target="#myModal1" onclick="">快速输入社平工资及缴费基数</button>
-                </div>
                 <div class="container container-fluid  table-responsive">
                     <table class="table table-hover table-condensed">
                         <thead>
                         <tr class="success">
-                            <td colspan="12">请输入每年度的社平工资及缴费基数</td>
+                            <td colspan="12">
+                                <span>退休年龄：
+                                <input type="number" min="40" max="70" id="retireAge_B" value="50" style="width: 40px"/>
+                                累计缴费月份：
+                                <input type="number" min="180" max="576" id="payMonth_B" value="180" onchange="payMonthChange()" style="width: 60px"/>
+                                预计退休金涨幅：
+                                <input type="number" min="0" max="100" id="retireUp" value="0" style="width: 40px"/>%
+                                <button onclick="calculate_B()">计算</button>
+                                <button onclick="clear_B()">重置</button>
+                                <button type="button" data-toggle="modal" data-target="#myModal1" onclick="">快速输入社平工资及缴费基数</button></span>
+                            </td>
                         </tr>
                         <tr class="active">
                             <th>#</th>
@@ -161,13 +168,13 @@
                                        min="0" max="99999"/></td>
                             <td><input type="number" id="bases13" placeholder="缴费基数" value="0"/></td>
                             <td>第25年</td>
-                            <td><input type="number" id="wages25" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages25" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases25" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases25" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第37年</td>
-                            <td><input type="number" id="wages37" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages37" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases37" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases37" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                         </tr>
                         <tr>
                             <td>第2年</td>
@@ -179,13 +186,13 @@
                                        min="0" max="99999"/></td>
                             <td><input type="number" id="bases14" placeholder="缴费基数" value="0"/></td>
                             <td>第26年</td>
-                            <td><input type="number" id="wages26" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages26" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases26" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases26" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第38年</td>
-                            <td><input type="number" id="wages38" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages38" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases38" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases38" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                         <tr>
                             <td>第3年</td>
                             <td><input type="number" id="wages3" placeholder="社平工资" value="0" onchange="wagesChange()"
@@ -196,13 +203,13 @@
                                        min="0" max="99999"/></td>
                             <td><input type="number" id="bases15" placeholder="缴费基数" value="0"/></td>
                             <td>第27年</td>
-                            <td><input type="number" id="wages27" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages27" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases27" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases27" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第39年</td>
-                            <td><input type="number" id="wages39" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages39" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases39" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases39" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                         </tr>
                         <tr>
                             <td>第4年</td>
@@ -210,19 +217,19 @@
                                        min="0" max="99999"/></td>
                             <td><input type="number" id="bases4" placeholder="缴费基数" value="0"/></td>
                             <td>第16年</td>
-                            <td><input type="number" id="wages16" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages16" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases16" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases16" placeholder="缴费基数" value="0" disabled="disabled"/></td>
 
 
                             <td>第28年</td>
-                            <td><input type="number" id="wages28" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages28" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases28" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases28" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第40年</td>
-                            <td><input type="number" id="wages40" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages40" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases40" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases40" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                         </tr>
                         <tr>
                             <td>第5年</td>
@@ -230,17 +237,17 @@
                                        min="0" max="99999"/></td>
                             <td><input type="number" id="bases5" placeholder="缴费基数" value="0"/></td>
                             <td>第17年</td>
-                            <td><input type="number" id="wages17" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages17" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases17" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases17" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第29年</td>
-                            <td><input type="number" id="wages29" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages29" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases29" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases29" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第41年</td>
-                            <td><input type="number" id="wages41" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages41" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases41" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases41" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                         </tr>
                         <tr>
                             <td>第6年</td>
@@ -248,18 +255,18 @@
                                        min="0" max="99999"/></td>
                             <td><input type="number" id="bases6" placeholder="缴费基数" value="0"/></td>
                             <td>第18年</td>
-                            <td><input type="number" id="wages18" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages18" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases18" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases18" placeholder="缴费基数" value="0" disabled="disabled"/></td>
 
                             <td>第30年</td>
-                            <td><input type="number" id="wages30" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages30" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases30" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases30" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第42年</td>
-                            <td><input type="number" id="wages42" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages42" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases42" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases42" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                         </tr>
                         <tr>
                             <td>第7年</td>
@@ -268,18 +275,18 @@
                             <td><input type="number" id="bases7" placeholder="缴费基数" value="0"/></td>
 
                             <td>第19年</td>
-                            <td><input type="number" id="wages19" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages19" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases19" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases19" placeholder="缴费基数" value="0" disabled="disabled"/></td>
 
                             <td>第31年</td>
-                            <td><input type="number" id="wages31" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages31" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases31" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases31" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第43年</td>
-                            <td><input type="number" id="wages43" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages43" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases43" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases43" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                         </tr>
                         <tr>
                             <td>第8年</td>
@@ -288,18 +295,17 @@
                             <td><input type="number" id="bases8" placeholder="缴费基数" value="0"/></td>
 
                             <td>第20年</td>
-                            <td><input type="number" id="wages20" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages20" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases20" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases20" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第32年</td>
-                            <td><input type="number" id="wages32" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages32" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases32" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases32" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第44年</td>
-                            <td><input type="number" id="wages44" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages44" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases44" placeholder="缴费基数" value="0" disabled="true"/></td>
-                        </tr>
+                            <td><input type="number" id="bases44" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                         </tr>
                         <tr>
                             <td>第9年</td>
@@ -307,17 +313,17 @@
                                        min="0" max="99999"/></td>
                             <td><input type="number" id="bases9" placeholder="缴费基数" value="0"/></td>
                             <td>第21年</td>
-                            <td><input type="number" id="wages21" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages21" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases21" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases21" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第33年</td>
-                            <td><input type="number" id="wages33" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages33" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases33" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases33" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第45年</td>
-                            <td><input type="number" id="wages45" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages45" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases45" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases45" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                         </tr>
                         <tr>
                             <td>第10年</td>
@@ -325,18 +331,18 @@
                                        min="0" max="99999"/></td>
                             <td><input type="number" id="bases10" placeholder="缴费基数" value="0"/></td>
                             <td>第22年</td>
-                            <td><input type="number" id="wages22" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages22" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases22" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases22" placeholder="缴费基数" value="0" disabled="disabled"/></td>
 
                             <td>第34年</td>
-                            <td><input type="number" id="wages34" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages34" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases34" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases34" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第46年</td>
-                            <td><input type="number" id="wages46" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages46" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases46" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases46" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                         </tr>
                         <tr>
                             <td>第11年</td>
@@ -344,17 +350,17 @@
                                        min="0" max="99999"/></td>
                             <td><input type="number" id="bases11" placeholder="缴费基数" value="0"/></td>
                             <td>第23年</td>
-                            <td><input type="number" id="wages23" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages23" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases23" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases23" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第35年</td>
-                            <td><input type="number" id="wages35" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages35" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases35" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases35" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第47年</td>
-                            <td><input type="number" id="wages47" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages47" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases47" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases47" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                         </tr>
                         <tr>
                             <td>第12年</td>
@@ -362,51 +368,48 @@
                                        min="0" max="99999"/></td>
                             <td><input type="number" id="bases12" placeholder="缴费基数" value="0"/></td>
                             <td>第24年</td>
-                            <td><input type="number" id="wages24" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages24" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases24" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases24" placeholder="缴费基数" value="0" disabled="disabled"/></td>
 
                             <td>第36年</td>
-                            <td><input type="number" id="wages36" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages36" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases36" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases36" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                             <td>第48年</td>
-                            <td><input type="number" id="wages48" placeholder="社平工资" value="0" disabled="true"
+                            <td><input type="number" id="wages48" placeholder="社平工资" value="0" disabled="disabled"
                                        onchange="wagesChange()" min="0" max="99999"/></td>
-                            <td><input type="number" id="bases48" placeholder="缴费基数" value="0" disabled="true"/></td>
+                            <td><input type="number" id="bases48" placeholder="缴费基数" value="0" disabled="disabled"/></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div>
-                    <span>注意：</span>
-                    <br/>
-                    <span>1、为方便计算，每年变更基数的时间一律取整，忽略视同缴费部分，忽略建立个人账户前的缴费年限。</span>
-                    <br/>
-                    <span>2、由于忽略建立个人账户前的缴费年限，在退休金计算的过程中，无过渡性养老金。</span>
-                    <br/>
-                    <span>3、正常退休、因病退休、特殊工种退休的退休金计算公式一致。</span>
-                    <br/>
-                </div>
             </section>
             <section class="st-panel" id="st-panel-3">
                 <div class="st-desc" data-icon="G"></div>
                 <h2>相关说明</h2>
-                <p>退休金由基础性养老、个人账户养老金、过渡性养老金三部分构成，其中</p>
+                <p>退休金由基础性养老、个人账户养老金、过渡性养老金三部分构成，其中：</p>
+                <p>1、基础养老金=(职工退休上限度全市在岗职工月平均工资+本人指数化月平均工资)/2*缴费年限*1%；</p>
+                <p>2、个人账户养老金=个人账户存储额/计发月份；</p>
+                <p>3、过渡性养老金=本人指数化月平均工资*1.3%*缴费年限（建立个人账户前的缴费年限，济南市为1996年1月）；</p>
+                <p>4、正常退休、因病退休、特殊工种退休的退休金计算公式一致。</p>
                 <br/>
-                <p>1、基础养老金=(职工退休上限度全市在岗职工月平均工资+本人指数化月平均工资)/2*缴费年限*1%</p>
                 <br/>
-                <p>2、个人账户养老金=个人账户存储额/计发月份</p>
                 <br/>
-                <p>3、过渡性养老金=本人指数化月平均工资*1.3%*缴费年限(建立个人账户前的缴费年限，济南市为1996年1月)</p>
+                <p>在缴费估算中：</p>
+                <p>1、为方便计算，每年变更基数的时间一律取整，忽略视同缴费部分，忽略建立个人账户前的缴费年限；</p>
+                <p>2、由于忽略建立个人账户前的缴费年限，在退休金计算的过程中，无过渡性养老金。</p>
                 <br/>
-
+                <br/>
+                <br/>
+                <p>注意：</p>
+                <p>1、本程序严格按照社保的相关规定计算退休金，如有错误，请及时反馈；</p>
+                <p>2、由于难以获得准确的社保信息且社保政策变化多端，故本程序仅供内部工作人员用于估算退休金，不得用于为他人计算。</p>
             </section>
             <section class="st-panel" id="st-panel-4">
                 <div class="st-desc" data-icon="X"></div>
                 <h2>相关数据</h2>
-                <div class="container container-fluid  table-responsive">
                     <table class="table table-hover table-condensed table-bordered">
                         <thead>
                         <tr class="success">
@@ -524,10 +527,6 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-hover table-condensed table-bordered">
-                        <thead>
                         <tr class="success">
                             <td colspan="8">济南市历年月平均工资一览表</td>
                         </tr>
@@ -541,8 +540,6 @@
                             <th>年度</th>
                             <th>月均工资</th>
                         </tr>
-                        </thead>
-                        <tbody>
                         <tr>
                             <td>1985年</td>
                             <td>93元</td>
@@ -645,41 +642,40 @@
                         </tr>
                         </tbody>
                     </table>
-                </div>
             </section>
             <section class="st-panel" id="st-panel-5">
                 <div class="st-desc" data-icon="J"></div>
                 <h2>计算结果</h2>
-                <div class="container container-fluid  table-responsive">
-                    <table class="table table-hover table-condensed table-bordered">
+                <div >
+                    <table>
                         <tr>
-                            <td>平均指数</td>
+                            <td><p>平均指数</p></td>
                             <td><p id="averageNumber">0</p></td>
-                            <td>缴费年限</td>
+                            <td><p>缴费年限</p></td>
                             <td><p id="payYear">0年</p></td>
-                            <td>计发月数</td>
+                            <td><p>计发月数</p></td>
                             <td><p id="calculateMonth">0</p></td>
                         </tr>
                         <tr>
-                            <td>累计缴费金额</td>
+                            <td><p>累计缴费金额</p></td>
                             <td><p id="payMoney">0元</p></td>
-                            <td>个人账户余额</td>
+                            <td><p>个人账户余额</p></td>
                             <td><p id="perMoney">0元</p></td>
-                            <td>社保统筹金额</td>
+                            <td><p>社保统筹金额</p></td>
                             <td><p id="govMoney">0元</p></td>
                         </tr>
                         <tr>
-                            <td>基础性养老金</td>
+                            <td><p>基础性养老金</p></td>
                             <td><p id="basicMoney">0元</p></td>
-                            <td>个人账户养老金</td>
+                            <td><p>个人账户养老金</p></td>
                             <td><p id="accountMoney">0元</p></td>
-                            <td>过渡性养老金</td>
+                            <td><p>过渡性养老金</p></td>
                             <td><p id="limboMoney">0元</p></td>
                         </tr>
                         <tr>
-                            <td>月退休金总计</td>
+                            <td><p>月退休金总计</p></td>
                             <td><p id="totalMoney">0元</p></td>
-                            <td>缴费回本时间</td>
+                            <td><p>缴费回本时间</p></td>
                             <td><p id="returnYear">0年</p></td>
                             <td></td>
                             <td></td>

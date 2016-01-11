@@ -210,7 +210,6 @@ a {
     -ms-transform: rotate(-45deg) translateY(25%);
     -o-transform: rotate(-45deg) translateY(25%);
     transform: rotate(-45deg) translateY(25%);
-    font-family: "Raphaelicons";
     text-shadow: 1px 1px 1px rgba(151, 24, 64, 0.2);
 }
 
@@ -235,13 +234,170 @@ a {
 #st-control-3:checked ~ .st-scroll #st-panel-3 h2,
 #st-control-4:checked ~ .st-scroll #st-panel-4 h2,
 #st-control-5:checked ~ .st-scroll #st-panel-5 h2 {
-
+    -webkit-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+    -moz-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+    -o-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+    -ms-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+    animation: moveDown 0.6s ease-in-out 0.2s backwards;
 }
-
+@-webkit-keyframes moveDown {
+    0%{
+        -webkit-transform: translateY(-40px);
+        opacity:0;
+    }
+    100%{
+        -webkit-transform: translateY(0px);
+        opacity:1;
+    }
+}
+@-moz-keyframes moveDown {
+    0%{
+        -moz-transform: translateY(-40px);
+        opacity:0;
+    }
+    100%{
+        -moz-transform: translateY(0px);
+        opacity:1;
+    }
+}
+@-o-keyframes moveDown {
+    0%{
+        -o-transform: translateY(-40px);
+        opacity:0;
+    }
+    100%{
+        -o-transform: translateY(0px);
+        opacity:1;
+    }
+}
+@-ms-keyframes moveDown {
+    0%{
+        -ms-transform: translateY(-40px);
+        opacity:0;
+    }
+    100%{
+        -ms-transform: translateY(0px);
+        opacity:1;
+    }
+}@keyframes moveDown {
+     0%{
+         transform: translateY(-40px);
+         opacity:0;
+     }
+     100%{
+         transform: translateY(0px);
+         opacity:1;
+     }
+ }
 #st-panel-2 table tr th,
 #st-panel-2 table tr td,
 #st-panel-2 table tr td input
 {
     width: 100px;
     text-align: center;
+}
+.st-panel p{
+    position: relative;
+    width:100%;
+    left:0%;
+    top:20%;
+    font-size: 16px;
+    line-height: 22px;
+    padding: 0;
+    text-align: center;
+    -webkit-backface-visibility: hidden;
+    color: #8b8b8b;
+}
+#st-control-1:checked~.st-scroll #st-panel-1,
+#st-control-2:checked~.st-scroll #st-panel-2,
+#st-control-3:checked~.st-scroll #st-panel-3,
+#st-control-4:checked~.st-scroll #st-panel-4,
+#st-control-5:checked~.st-scroll #st-panel-5{
+    -webkit-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+    -moz-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+    -o-animation: moveUp0.6s ease-in-out 0.2s backwards;
+    -ms-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+    animation: moveUp 0.6s ease-in-out 0.2s backwards;
+}
+@-webkit-keyframes moveUp {
+    0%{
+        -webkit-transform:translateY(40px);
+        opacity:0;
+    }
+    100%{
+        -webkit-transform:translateY(0px);
+        opacity:1;
+    }
+}
+@-moz-keyframes moveUp {
+    0%{
+        -moz-transform:translateY(40px);
+        opacity:0;
+    }
+    100%{
+        -moz-transform:translateY(0px);
+        opacity:1;
+    }
+}
+@-o-keyframes moveUp {
+    0%{
+        -o-transform:translateY(40px);
+        opacity:0;
+    }
+    100%{
+        -o-transform:translateY(0px);
+        opacity:1;
+    }
+}
+@-ms-keyframes moveUp {
+    0%{
+        -ms-transform:translateY(40px);
+        opacity:0;
+    }
+    100%{
+        -ms-transform:translateY(0px);
+        opacity:1;
+    }
+}
+@keyframes moveUp {
+    0%{
+        transform:translateY(40px);
+        opacity:0;
+    }
+    100%{
+        transform:translateY(0px);
+        opacity:1;
+    }
+}
+#st-panel-5 table {
+    position:absolute;
+    width:50%;
+    left:25%;
+    top:20%;
+}
+#st-panel-1 table {
+    position:absolute;
+    width:50%;
+    left:25%;
+    top:20%;
+}
+#st-panel-2 table {
+    position:absolute;
+    width:90%;
+    left:5%;
+    top:20%;
+}
+
+#st-panel-3 p {
+    position:relative;
+    width:80%;
+    left:30%;
+    top:20%;
+    text-align: left;
+}
+#st-panel-4 table {
+    position:absolute;
+    width:80%;
+    left:10%;
+    top:18%;
 }

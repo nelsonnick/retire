@@ -170,6 +170,7 @@ function clear_A() {
 function calculate_B() {
     var retireAge_B = document.getElementById("retireAge_B").value;
     var payMonth_B = document.getElementById("payMonth_B").value;
+    var retireUp = document.getElementById("retireUp").value;
     var wages = new Array(49);
     var bases = new Array(49);
     var bw = new Array(49);
@@ -203,11 +204,23 @@ function calculate_B() {
     var latelyWages_B = document.getElementById(wages[parseInt(number) - 1]).value;
 
 
-    var a = parseFloat(((parseInt(latelyWages_B) + latelyWages_B * averageNumber_B) / 2 * payMonth_B / 12 * 0.01)).toFixed(3);
-    var b = parseFloat((perMoney_B / calculateMonth_B)).toFixed(3);
-    var c = (parseFloat(a) + parseFloat(b)).toFixed(3);
-    var d = (parseFloat(payMonth_B / 12)).toFixed(3);
+    var a = parseFloat(((parseInt(latelyWages_B) + latelyWages_B * averageNumber_B) / 2 * payMonth_B / 12 * 0.01)).toFixed(2);
+    var b = parseFloat((perMoney_B / calculateMonth_B)).toFixed(2);
+    var c = (parseFloat(a) + parseFloat(b)).toFixed(2);
+    var d = (parseFloat(payMonth_B / 12)).toFixed(2);
 
+    var retire = new Array(50);
+    var retireTotal=0;
+    var returnYear;
+    for (i=1;i<retire.length;i++){
+        retire[i]=(c*((parseFloat(retireUp/100)+1)^(i-1))).toFixed(2);
+        console.log(retire[i]);
+        retireTotal=(parseFloat(retireTotal)+parseFloat(retire[i]*12)).toFixed(2);
+        if (retireTotal>(payMoney_B * 12).toFixed(2)){
+            returnYear=i;
+            break;
+        }
+    }
 
     document.getElementById("basicMoney").innerHTML = a + "元";
     document.getElementById("accountMoney").innerHTML = b + "元";
@@ -219,7 +232,7 @@ function calculate_B() {
     document.getElementById("payYear").innerHTML = d + "年";
     document.getElementById("limboMoney").innerHTML = "0元";
     document.getElementById("totalMoney").innerHTML = c + "元";
-    document.getElementById("returnYear").innerHTML = (payMoney_B / c).toFixed(2) + "年";
+    document.getElementById("returnYear").innerHTML = returnYear + "年";
     document.getElementById("st-control-5").checked = "true";
 }
 
@@ -237,6 +250,7 @@ function clear_B() {
     document.getElementById("averageNumber_B").value = "0.600";
     document.getElementById("retireAge_B").value = "50";
     document.getElementById("payMonth_B").value = "180";
+    document.getElementById("retireUp").value = "0";
 
     document.getElementById("basicMoney").innerHTML = "0元";
     document.getElementById("limboMoney").innerHTML = "0元";

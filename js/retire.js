@@ -122,39 +122,41 @@ function calculate_A() {
     var e = (parseFloat(a) + parseFloat(b) + parseFloat(c)).toFixed(2);
     var f = (parseFloat(payMonth_A / 12)).toFixed(2);
 
-    document.getElementById("basicMoney").innerHTML = a + "元";
-    document.getElementById("accountMoney").innerHTML = b + "元";
-    document.getElementById("averageNumber").innerHTML = averageNumber_A;
-    document.getElementById("calculateMonth").innerHTML = calculateMonth_A;
-    document.getElementById("perMoney").innerHTML = perMoney_A + "元";
-    document.getElementById("payMoney").innerHTML = "未设定";
-    document.getElementById("payYear").innerHTML = f + "年";
-    document.getElementById("govMoney").innerHTML = "未设定";
-    document.getElementById("returnYear").innerHTML = "无法计算";
+    document.getElementById("basicMoney").value = a ;
+    document.getElementById("accountMoney").value = b ;
+    document.getElementById("averageNumber").value = averageNumber_A;
+    document.getElementById("calculateMonth").value = calculateMonth_A;
+    document.getElementById("perMoney").value = perMoney_A ;
+    document.getElementById("payMoney").value = "无法计算";
+    document.getElementById("payYear").value = f ;
+    document.getElementById("govMoney").value = "无法计算";
+    document.getElementById("returnYear").value = "无法计算";
+    document.getElementById("returnMonth").value = "无法计算";
     if (build > work) {
-        document.getElementById("limboMoney").innerHTML = c + "元";
-        document.getElementById("totalMoney").innerHTML = e + "元";
+        document.getElementById("limboMoney").value = c ;
+        document.getElementById("totalMoney").value = e ;
     }
     else {
-        document.getElementById("limboMoney").innerHTML = 0.00 + "元";
-        document.getElementById("totalMoney").innerHTML = d + "元";
+        document.getElementById("limboMoney").value = 0.00 ;
+        document.getElementById("totalMoney").value = d ;
     }
 
 
     document.getElementById("st-control-5").checked = "true";
 }
 function clear_A() {
-    document.getElementById("basicMoney").innerHTML = "0元";
-    document.getElementById("limboMoney").innerHTML = "0元";
-    document.getElementById("accountMoney").innerHTML = "0元";
-    document.getElementById("totalMoney").innerHTML = "0元";
-    document.getElementById("averageNumber").innerHTML = "0";
-    document.getElementById("calculateMonth").innerHTML = "0";
-    document.getElementById("perMoney").innerHTML = "0元";
-    document.getElementById("payMoney").innerHTML = "未设定";
-    document.getElementById("payYear").innerHTML = "0年";
-    document.getElementById("govMoney").innerHTML = "0元";
-    document.getElementById("returnYear").innerHTML = "0年";
+    document.getElementById("basicMoney").value = "0";
+    document.getElementById("limboMoney").value = "0";
+    document.getElementById("accountMoney").value = "0";
+    document.getElementById("totalMoney").value = "0";
+    document.getElementById("averageNumber").value = "0";
+    document.getElementById("calculateMonth").value = "0";
+    document.getElementById("perMoney").value = "0";
+    document.getElementById("payMoney").value = "未设定";
+    document.getElementById("payYear").value = "0";
+    document.getElementById("govMoney").value = "0";
+    document.getElementById("returnYear").value = "0";
+    document.getElementById("returnMonth").value = "0";
 
 
     document.getElementById("retireAge_A").value = "50";
@@ -182,8 +184,14 @@ function calculate_B() {
     var payMoney_B = 0;//累计缴费
     var govMoney_B = 0;//社保统筹部分
     var medMoney_B = 0;//医疗保险缴费
+    var empMoney_B = 0;//失业保险缴费
+    var retire = new Array(50);//月退休工资
+    var returnYear = 0;//领取退休金年限
+    var returnMonth = 0;//领取退休金年限
+    var calculateMonth_B = getCalculateMonth(retireAge_B);
+    var latelyWages_B = document.getElementById("wages" + (parseInt(remainYear) - 1)).value;
 
-
+    //检测是否输入社平工资
     if (parseInt(remainMonth) == 0) {
         for (var o = 1; o < remainYearNext; o++) {
             if (parseInt(document.getElementById("wages" + o).value) == 0) {
@@ -199,6 +207,7 @@ function calculate_B() {
             }
         }
     }
+    //获取缴费指数
     for (var i = 1; i < bases.length; i++) {
         wages[i] = "wages" + i;
         bases[i] = "bases" + i;
@@ -207,88 +216,152 @@ function calculate_B() {
         }
         bw[i] = document.getElementById(bases[i]).value / document.getElementById(wages[i]).value;
     }
+    //根据缴费类别的不同分开计算
+    if (document.getElementById("payType").value == 26) {
 
-    if (document.getElementById("medicalRadio").value == 55) {
-        for (var s = 1; s < remainYearNext; s++) {
-            medMoney_B = (parseFloat(medMoney_B) + parseFloat(document.getElementById(wages[s]).value * 0.055) + 18).toFixed(3);
+        //计算总缴费指数、累计缴费金额、个人账户金额、计入社会统筹、个人医保缴费金额、个人失业缴费金额
+        for (var v = 1; v < remainYearNext; v++) {
+            total = (parseFloat(total) + parseFloat(bw[v])).toFixed(3);
+            perMoney_B = (parseFloat(perMoney_B) + document.getElementById(bases[v]).value * 0.08).toFixed(2);
+            payMoney_B = (parseFloat(payMoney_B) + document.getElementById(bases[v]).value * 0.4).toFixed(2);
+            govMoney_B = (parseFloat(govMoney_B) + document.getElementById(bases[v]).value * 0.18).toFixed(2);
+            empMoney_B = (parseFloat(empMoney_B) + document.getElementById(bases[v]).value * 0.005).toFixed(2);
+            medMoney_B = (parseFloat(medMoney_B) + document.getElementById(bases[v]).value * 0.02).toFixed(3);
         }
-        if (parseInt(document.getElementById("wages" + remainYearNext).value) == 0) {
+
+        if (parseInt(document.getElementById("bases" + remainYearNext).value) == 0) {
+            total = parseFloat(total) * 12;
+            perMoney_B = parseFloat(perMoney_B) * 12;
+            payMoney_B = parseFloat(payMoney_B) * 12;
+            govMoney_B = parseFloat(govMoney_B) * 12;
+            empMoney_B = parseFloat(empMoney_B) * 12;
             medMoney_B = parseFloat(medMoney_B) * 12;
         } else {
-            medMoney_B = (parseFloat(medMoney_B) * 12 + (parseFloat(document.getElementById("wages" + remainYearNext).value * 0.055) + 18) * remainMonth).toFixed(2);
+            total = (parseFloat(total) * 12 + (document.getElementById("bases" + remainYearNext).value / document.getElementById("wages" + remainYearNext).value) * remainMonth).toFixed(2);
+            perMoney_B = (parseFloat(perMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.08 * remainMonth).toFixed(2);//个人养老
+            payMoney_B = (parseFloat(payMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.4 * remainMonth).toFixed(2);//缴费总计
+            govMoney_B = (parseFloat(govMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.18 * remainMonth).toFixed(2);//社会统筹
+            empMoney_B = (parseFloat(empMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.005 * remainMonth).toFixed(2);//个人失业
+            medMoney_B = (parseFloat(medMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.02 * remainMonth).toFixed(2);//个人医疗
         }
 
-    } else if (document.getElementById("medicalRadio").value == 10) {
-        for (var q = 1; q < remainYearNext; q++) {
-            medMoney_B = (parseFloat(medMoney_B) + document.getElementById(wages[q]).value * 0.1).toFixed(3);
-        }
-        if (parseInt(document.getElementById("wages" + remainYearNext).value) == 0) {
-            medMoney_B = parseFloat(medMoney_B) * 12;
-        } else {
-            medMoney_B = (parseFloat(medMoney_B) * 12 + document.getElementById("wages" + remainYearNext).value * 0.1 * remainMonth).toFixed(2);
-        }
-    } else {
-        medMoney_B = 0;
-    }
+        var averageNumber_B_1 = (total / payMonth_B).toFixed(3);
 
-    for (var l = 1; l < remainYearNext; l++) {
-        total = (parseFloat(total) + parseFloat(bw[l])).toFixed(3);
-        perMoney_B = (parseFloat(perMoney_B) + document.getElementById(bases[l]).value * 0.08).toFixed(2);
-        payMoney_B = (parseFloat(payMoney_B) + document.getElementById(bases[l]).value * 0.2).toFixed(2);
-        govMoney_B = (parseFloat(govMoney_B) + document.getElementById(bases[l]).value * 0.12).toFixed(2);
-    }
-    if (parseInt(document.getElementById("wages" + remainYearNext).value) == 0) {
-        total = parseFloat(total) * 12;
-        perMoney_B = parseFloat(perMoney_B) * 12;
-        payMoney_B = parseFloat(payMoney_B) * 12;
-        govMoney_B = parseFloat(govMoney_B) * 12;
-    } else {
-        total = (parseFloat(total) * 12 + (document.getElementById("bases" + remainYearNext).value / document.getElementById("wages" + remainYearNext).value) * remainMonth).toFixed(2);
-        perMoney_B = (parseFloat(perMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.08 * remainMonth).toFixed(2);
-        payMoney_B = (parseFloat(payMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.2 * remainMonth).toFixed(2);
-        govMoney_B = (parseFloat(govMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.12 * remainMonth).toFixed(2);
+        var a_1 = parseFloat(((parseInt(latelyWages_B) + latelyWages_B * averageNumber_B_1) / 2 * payMonth_B / 12 * 0.01)).toFixed(2);
+        var b_1 = parseFloat((perMoney_B / calculateMonth_B)).toFixed(2);
+        var c_1 = (parseFloat(a_1) + parseFloat(b_1)).toFixed(2);//退休金总计
+        var d_1 = (parseFloat(payMonth_B / 12)).toFixed(2);
 
-    }
-
-    var averageNumber_B = (total / payMonth_B).toFixed(3);
-    var calculateMonth_B = getCalculateMonth(retireAge_B);
-    var latelyWages_B = document.getElementById("wages" + (parseInt(remainYear) - 1)).value;
-
-
-    var a = parseFloat(((parseInt(latelyWages_B) + latelyWages_B * averageNumber_B) / 2 * payMonth_B / 12 * 0.01)).toFixed(2);
-    var b = parseFloat((perMoney_B / calculateMonth_B)).toFixed(2);
-    var c = (parseFloat(a) + parseFloat(b)).toFixed(2);//退休金总计
-    var d = (parseFloat(payMonth_B / 12)).toFixed(2);
-
-    var retire = new Array(50);//月退休工资
-    var returnYear = 0;//领取退休金年限
-    var returnMonth = 0;//领取退休金年限
-    var pm = parseFloat(payMoney_B) + parseFloat(medMoney_B);
-    aaa:
-        for (var t = 1; t < retire.length; t++) {
-            retire[t] = (c * Math.pow(retireUp * 0.01 + 1, t - 1)).toFixed(2);
-            for (var r = 1; r < 13; r++) {
-                if (pm > 0) {
-                    pm = pm - retire[t];
-                } else {
-                    returnMonth = r - 1;
-                    break aaa;
+        var pm_1 = parseFloat(perMoney_B) + parseFloat(medMoney_B) + parseFloat(empMoney_B);
+        aaa:
+            for (var h = 1; h < retire.length; h++) {
+                retire[h] = (c_1 * Math.pow(retireUp * 0.01 + 1, h - 1)).toFixed(2);
+                for (var g = 1; g < 13; g++) {
+                    if (pm_1 > 0) {
+                        pm_1 = pm_1 - retire[h];
+                    } else {
+                        returnMonth = g - 1;
+                        break aaa;
+                    }
                 }
+                returnYear++;
             }
-            returnYear++;
+
+        document.getElementById("basicMoney").value = a_1 ;
+        document.getElementById("accountMoney").value = b_1 ;
+        document.getElementById("averageNumber").value = averageNumber_B_1;
+        document.getElementById("calculateMonth").value = calculateMonth_B;
+        document.getElementById("payMoney").value = payMoney_B.toFixed(2) ;
+        document.getElementById("govMoney").value = govMoney_B.toFixed(2) ;
+        document.getElementById("perMoney").value = perMoney_B.toFixed(2) ;
+        document.getElementById("payYear").value = d_1 ;
+        document.getElementById("limboMoney").value = "0";
+        document.getElementById("totalMoney").value = c_1 ;
+        document.getElementById("returnYear").value = returnYear;
+        document.getElementById("returnMonth").value = returnMonth;
+
+
+    } else {
+        //计算医保金额
+        if (document.getElementById("medicalRadio").value == 55) {
+            for (var s = 1; s < remainYearNext; s++) {
+                medMoney_B = (parseFloat(medMoney_B) + parseFloat(document.getElementById(wages[s]).value * 0.055) + 18).toFixed(3);
+            }
+            if (parseInt(document.getElementById("wages" + remainYearNext).value) == 0) {
+                medMoney_B = parseFloat(medMoney_B) * 12;
+            } else {
+                medMoney_B = (parseFloat(medMoney_B) * 12 + (parseFloat(document.getElementById("wages" + remainYearNext).value * 0.055) + 18) * remainMonth).toFixed(2);
+            }
+
+        } else if (document.getElementById("medicalRadio").value == 10) {
+            for (var q = 1; q < remainYearNext; q++) {
+                medMoney_B = (parseFloat(medMoney_B) + document.getElementById(wages[q]).value * 0.1).toFixed(3);
+            }
+            if (parseInt(document.getElementById("wages" + remainYearNext).value) == 0) {
+                medMoney_B = parseFloat(medMoney_B) * 12;
+            } else {
+                medMoney_B = (parseFloat(medMoney_B) * 12 + document.getElementById("wages" + remainYearNext).value * 0.1 * remainMonth).toFixed(2);
+            }
+        } else {
+            medMoney_B = 0;
+        }
+        //计算总缴费指数、累计缴费金额、个人账户金额、计入社会统筹金额
+        for (var l = 1; l < remainYearNext; l++) {
+            total = (parseFloat(total) + parseFloat(bw[l])).toFixed(3);
+            perMoney_B = (parseFloat(perMoney_B) + document.getElementById(bases[l]).value * 0.08).toFixed(2);
+            payMoney_B = (parseFloat(payMoney_B) + document.getElementById(bases[l]).value * 0.2).toFixed(2);
+            govMoney_B = (parseFloat(govMoney_B) + document.getElementById(bases[l]).value * 0.12).toFixed(2);
+        }
+        if (parseInt(document.getElementById("wages" + remainYearNext).value) == 0) {
+            total = parseFloat(total) * 12;
+            perMoney_B = parseFloat(perMoney_B) * 12;
+            payMoney_B = parseFloat(payMoney_B) * 12;
+            govMoney_B = parseFloat(govMoney_B) * 12;
+        } else {
+            total = (parseFloat(total) * 12 + (document.getElementById("bases" + remainYearNext).value / document.getElementById("wages" + remainYearNext).value) * remainMonth).toFixed(2);
+            perMoney_B = (parseFloat(perMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.08 * remainMonth).toFixed(2);
+            payMoney_B = (parseFloat(payMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.2 * remainMonth).toFixed(2);
+            govMoney_B = (parseFloat(govMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.12 * remainMonth).toFixed(2);
+
         }
 
-    document.getElementById("basicMoney").innerHTML = a + "元";
-    document.getElementById("accountMoney").innerHTML = b + "元";
-    document.getElementById("averageNumber").innerHTML = averageNumber_B;
-    document.getElementById("calculateMonth").innerHTML = calculateMonth_B;
-    document.getElementById("payMoney").innerHTML = parseFloat(payMoney_B) + parseFloat(medMoney_B) + "元";
-    document.getElementById("govMoney").innerHTML = govMoney_B.toFixed(2) + "元";
-    document.getElementById("perMoney").innerHTML = perMoney_B.toFixed(2) + "元";
-    document.getElementById("payYear").innerHTML = d + "年";
-    document.getElementById("limboMoney").innerHTML = "0元";
-    document.getElementById("totalMoney").innerHTML = c + "元";
-    document.getElementById("returnYear").innerHTML = returnYear + "年" + returnMonth + "月";
+        var averageNumber_B = (total / payMonth_B).toFixed(3);
+
+        var a = parseFloat(((parseInt(latelyWages_B) + latelyWages_B * averageNumber_B) / 2 * payMonth_B / 12 * 0.01)).toFixed(2);
+        var b = parseFloat((perMoney_B / calculateMonth_B)).toFixed(2);
+        var c = (parseFloat(a) + parseFloat(b)).toFixed(2);//退休金总计
+        var d = (parseFloat(payMonth_B / 12)).toFixed(2);
+
+        var pm = parseFloat(payMoney_B) + parseFloat(medMoney_B);
+        aaa:
+            for (var t = 1; t < retire.length; t++) {
+                retire[t] = (c * Math.pow(retireUp * 0.01 + 1, t - 1)).toFixed(2);
+                for (var r = 1; r < 13; r++) {
+                    if (pm > 0) {
+                        pm = pm - retire[t];
+                    } else {
+                        returnMonth = r - 1;
+                        break aaa;
+                    }
+                }
+                returnYear++;
+            }
+
+        document.getElementById("basicMoney").value = a ;
+        document.getElementById("accountMoney").value = b;
+        document.getElementById("averageNumber").value = averageNumber_B;
+        document.getElementById("calculateMonth").ivalue = calculateMonth_B;
+        document.getElementById("payMoney").value = parseFloat(payMoney_B) + parseFloat(medMoney_B) ;
+        document.getElementById("govMoney").value = govMoney_B.toFixed(2) ;
+        document.getElementById("perMoney").value = perMoney_B.toFixed(2) ;
+        document.getElementById("payYear").value = d;
+        document.getElementById("limboMoney").value = "0";
+        document.getElementById("totalMoney").value = c ;
+        document.getElementById("returnYear").value = returnYear;
+        document.getElementById("returnMonth").value = returnMonth;
+    }
+
+
     document.getElementById("st-control-5").checked = "true";
 }
 
@@ -323,16 +396,16 @@ function clear_B() {
     wagesChange();
 }
 
-function typeChange(){
-    if(document.getElementById("payType").value == 20){
-        document.getElementById("medicalRadio").value="00";
-        document.getElementById("medicalRadio").options[0].text="无医保";
-        document.getElementById("medicalRadio").disabled=false;
-    }else if(document.getElementById("payType").value == 26){
-        document.getElementById("medicalRadio").value="00";
-        document.getElementById("medicalRadio").options[0].text="11%医保";
-        document.getElementById("medicalRadio").disabled=true;
-    }else{
+function typeChange() {
+    if (document.getElementById("payType").value == 20) {
+        document.getElementById("medicalRadio").value = "00";
+        document.getElementById("medicalRadio").options[0].text = "无医保";
+        document.getElementById("medicalRadio").disabled = false;
+    } else if (document.getElementById("payType").value == 26) {
+        document.getElementById("medicalRadio").value = "00";
+        document.getElementById("medicalRadio").options[0].text = "11%医保";
+        document.getElementById("medicalRadio").disabled = true;
+    } else {
 
     }
 }

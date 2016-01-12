@@ -173,7 +173,7 @@ function calculate_B() {
     var retireUp = document.getElementById("retireUp").value;//增长幅度
     var remainYear = parseInt(payMonth_B / 12);//年数
     var remainMonth = payMonth_B % 12;//月数余数
-    var remainYearNext = parseInt(payMonth_B / 12)+1;//下年数
+    var remainYearNext = parseInt(payMonth_B / 12) + 1;//下年数
     var wages = new Array(49);
     var bases = new Array(49);
     var bw = new Array(49);
@@ -208,26 +208,25 @@ function calculate_B() {
     }
     for (var l = 1; l < remainYearNext; l++) {
         total = (parseFloat(total) + parseFloat(bw[l])).toFixed(3);
-        console.log(perMoney_B);
         perMoney_B = (parseFloat(perMoney_B) + document.getElementById(bases[l]).value * 0.08).toFixed(2);
         payMoney_B = (parseFloat(payMoney_B) + document.getElementById(bases[l]).value * 0.2).toFixed(2);
         govMoney_B = (parseFloat(govMoney_B) + document.getElementById(bases[l]).value * 0.12).toFixed(2);
     }
-    if(parseInt(document.getElementById("wages"+remainYearNext).value)==0){
+    if (parseInt(document.getElementById("wages" + remainYearNext).value) == 0) {
         total = parseFloat(total) * 12;
         perMoney_B = parseFloat(perMoney_B) * 12;
-        payMoney_B = parseFloat(perMoney_B) * 12;
-        govMoney_B = parseFloat(perMoney_B) * 12;
-    }else{
-        total = (parseFloat(total) * 12 + (document.getElementById("bases"+remainYearNext).value / document.getElementById("wages"+remainYearNext).value) * remainMonth).toFixed(2);
-        perMoney_B = (parseFloat(perMoney_B) * 12 + document.getElementById("bases"+remainYearNext).value * 0.08 * remainMonth).toFixed(2);
-        payMoney_B = (parseFloat(perMoney_B) * 12 + document.getElementById("bases"+remainYearNext).value * 0.2 * remainMonth).toFixed(2);
-        govMoney_B = (parseFloat(perMoney_B) * 12 + document.getElementById("bases"+remainYearNext).value * 0.12 * remainMonth).toFixed(2);
+        payMoney_B = parseFloat(payMoney_B) * 12;
+        govMoney_B = parseFloat(govMoney_B) * 12;
+    } else {
+        total = (parseFloat(total) * 12 + (document.getElementById("bases" + remainYearNext).value / document.getElementById("wages" + remainYearNext).value) * remainMonth).toFixed(2);
+        perMoney_B = (parseFloat(perMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.08 * remainMonth).toFixed(2);
+        payMoney_B = (parseFloat(payMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.2 * remainMonth).toFixed(2);
+        govMoney_B = (parseFloat(govMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.12 * remainMonth).toFixed(2);
     }
 
     var averageNumber_B = (total / payMonth_B).toFixed(3);
     var calculateMonth_B = getCalculateMonth(retireAge_B);
-    var latelyWages_B = document.getElementById("wages"+(parseInt(remainYear) - 1)).value;
+    var latelyWages_B = document.getElementById("wages" + (parseInt(remainYear) - 1)).value;
 
 
     var a = parseFloat(((parseInt(latelyWages_B) + latelyWages_B * averageNumber_B) / 2 * payMonth_B / 12 * 0.01)).toFixed(2);
@@ -235,16 +234,22 @@ function calculate_B() {
     var c = (parseFloat(a) + parseFloat(b)).toFixed(2);//退休金总计
     var d = (parseFloat(payMonth_B / 12)).toFixed(2);
 
-    var retire = new Array(50);
-    var retireTotal = 0;//领取退休金总额
-    var returnYear;//领取退休金年限
+    var retire = new Array(50);//月退休工资
+    var returnYear=0;//领取退休金年限
+    var returnMonth=0;//领取退休金年限
+    var pm=payMoney_B;
+    aaa:
     for (var t = 1; t < retire.length; t++) {
-        retire[t] = (c * ((parseFloat(retireUp / 100) + 1) ^ (t - 1))).toFixed(2);
-        retireTotal = (parseFloat(retireTotal) + parseFloat(retire[t] * 12)).toFixed(2);
-        if (retireTotal > (payMoney_B * 12).toFixed(2)) {
-            returnYear = t;
-            break;
+        retire[t] = (c * Math.pow(retireUp * 0.01+1, t - 1)).toFixed(2);
+        for(var r=1;r<13;r++){
+            if (pm>0){
+                pm=pm-retire[t];
+            }else{
+                returnMonth=r-1;
+                break aaa;
+            }
         }
+        returnYear++;
     }
 
     document.getElementById("basicMoney").innerHTML = a + "元";
@@ -257,7 +262,7 @@ function calculate_B() {
     document.getElementById("payYear").innerHTML = d + "年";
     document.getElementById("limboMoney").innerHTML = "0元";
     document.getElementById("totalMoney").innerHTML = c + "元";
-    document.getElementById("returnYear").innerHTML = returnYear + "年";
+    document.getElementById("returnYear").innerHTML = returnYear + "年"+returnMonth + "月";
     document.getElementById("st-control-5").checked = "true";
 }
 

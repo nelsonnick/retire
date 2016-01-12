@@ -115,12 +115,12 @@ function calculate_A() {
     var build = new Date(buildYear, buildMonth, "1", "0", "0", "0");
     var difference = (build.getYear() - work.getYear()) * 12 + build.getMonth() - work.getMonth();
 
-    var a = parseFloat(((parseInt(latelyWages_A) + latelyWages_A * averageNumber_A) / 2 * payMonth_A / 12 * 0.01)).toFixed(3);
-    var b = parseFloat((perMoney_A / calculateMonth_A)).toFixed(3);
-    var c = parseFloat((latelyWages_A * averageNumber_A * 0.013 * difference / 12)).toFixed(3);
-    var d = (parseFloat(a) + parseFloat(b)).toFixed(3);
-    var e = (parseFloat(a) + parseFloat(b) + parseFloat(c)).toFixed(3);
-    var f = (parseFloat(payMonth_A / 12)).toFixed(3);
+    var a = parseFloat(((parseInt(latelyWages_A) + latelyWages_A * averageNumber_A) / 2 * payMonth_A / 12 * 0.01)).toFixed(2);
+    var b = parseFloat((perMoney_A / calculateMonth_A)).toFixed(2);
+    var c = parseFloat((latelyWages_A * averageNumber_A * 0.013 * difference / 12)).toFixed(2);
+    var d = (parseFloat(a) + parseFloat(b)).toFixed(2);
+    var e = (parseFloat(a) + parseFloat(b) + parseFloat(c)).toFixed(2);
+    var f = (parseFloat(payMonth_A / 12)).toFixed(2);
 
     document.getElementById("basicMoney").innerHTML = a + "元";
     document.getElementById("accountMoney").innerHTML = b + "元";
@@ -136,7 +136,7 @@ function calculate_A() {
         document.getElementById("totalMoney").innerHTML = e + "元";
     }
     else {
-        document.getElementById("limboMoney").innerHTML = 0.000 + "元";
+        document.getElementById("limboMoney").innerHTML = 0.00 + "元";
         document.getElementById("totalMoney").innerHTML = d + "元";
     }
 
@@ -168,56 +168,81 @@ function clear_A() {
     document.getElementById("buildMonth").value = "1";
 }
 function calculate_B() {
-    var retireAge_B = document.getElementById("retireAge_B").value;
-    var payMonth_B = document.getElementById("payMonth_B").value;
-    var retireUp = document.getElementById("retireUp").value;
+    var retireAge_B = document.getElementById("retireAge_B").value;//退休年龄
+    var payMonth_B = document.getElementById("payMonth_B").value;//缴费月份
+    var retireUp = document.getElementById("retireUp").value;//增长幅度
+    var remainYear = parseInt(payMonth_B / 12);//年数
+    var remainMonth = payMonth_B % 12;//月数余数
+    var remainYearNext = parseInt(payMonth_B / 12)+1;//下年数
     var wages = new Array(49);
     var bases = new Array(49);
     var bw = new Array(49);
-    var number;
-    var total = 0;
-    var perMoney_B = 0;
-    var payMoney_B = 0;
-    var govMoney_B = 0;
+    var total = 0;//指数总和
+    var perMoney_B = 0;//个人账户部分
+    var payMoney_B = 0;//累计缴费
+    var govMoney_B = 0;//社保统筹部分
+
+
+    if (parseInt(remainMonth) == 0) {
+        for (var o = 1; o < remainYearNext; o++) {
+            if (parseInt(document.getElementById("wages" + o).value) == 0) {
+                alert("未输入第" + o + "年的社会平均工资。请重新输入后再计算！");
+                return;
+            }
+        }
+    } else {
+        for (var p = 1; p < (parseInt(remainYear) + 2); p++) {
+            if (parseInt(document.getElementById("wages" + p).value) == 0) {
+                alert("未输入第" + p + "年的社会平均工资。请重新输入后再计算！");
+                return;
+            }
+        }
+    }
     for (var i = 1; i < bases.length; i++) {
         wages[i] = "wages" + i;
         bases[i] = "bases" + i;
         if (parseInt(document.getElementById(wages[i]).value) == 0) {
-            number = i;
             break;
         }
         bw[i] = document.getElementById(bases[i]).value / document.getElementById(wages[i]).value;
     }
-    for (var i = 1; i < number; i++) {
-        total = (parseFloat(total) + parseFloat(bw[i])).toFixed(3);
-
-        /*
-         console.log(payMoney_B);
-         */
-        perMoney_B = (parseFloat(perMoney_B) + document.getElementById(bases[i]).value * 0.08).toFixed(2);
-        payMoney_B = (parseFloat(payMoney_B) + document.getElementById(bases[i]).value * 0.2).toFixed(2);
-        govMoney_B = (parseFloat(govMoney_B) + document.getElementById(bases[i]).value * 0.12).toFixed(2);
-
+    for (var l = 1; l < remainYearNext; l++) {
+        total = (parseFloat(total) + parseFloat(bw[l])).toFixed(3);
+        console.log(perMoney_B);
+        perMoney_B = (parseFloat(perMoney_B) + document.getElementById(bases[l]).value * 0.08).toFixed(2);
+        payMoney_B = (parseFloat(payMoney_B) + document.getElementById(bases[l]).value * 0.2).toFixed(2);
+        govMoney_B = (parseFloat(govMoney_B) + document.getElementById(bases[l]).value * 0.12).toFixed(2);
     }
-    var averageNumber_B = (total / (parseInt(number) - 1)).toFixed(3);
+    if(parseInt(document.getElementById("wages"+remainYearNext).value)==0){
+        total = parseFloat(total) * 12;
+        perMoney_B = parseFloat(perMoney_B) * 12;
+        payMoney_B = parseFloat(perMoney_B) * 12;
+        govMoney_B = parseFloat(perMoney_B) * 12;
+    }else{
+        total = (parseFloat(total) * 12 + (document.getElementById("bases"+remainYearNext).value / document.getElementById("wages"+remainYearNext).value) * remainMonth).toFixed(2);
+        perMoney_B = (parseFloat(perMoney_B) * 12 + document.getElementById("bases"+remainYearNext).value * 0.08 * remainMonth).toFixed(2);
+        payMoney_B = (parseFloat(perMoney_B) * 12 + document.getElementById("bases"+remainYearNext).value * 0.2 * remainMonth).toFixed(2);
+        govMoney_B = (parseFloat(perMoney_B) * 12 + document.getElementById("bases"+remainYearNext).value * 0.12 * remainMonth).toFixed(2);
+    }
+
+    var averageNumber_B = (total / payMonth_B).toFixed(3);
     var calculateMonth_B = getCalculateMonth(retireAge_B);
-    var latelyWages_B = document.getElementById(wages[parseInt(number) - 1]).value;
+    var latelyWages_B = document.getElementById("wages"+(parseInt(remainYear) - 1)).value;
 
 
     var a = parseFloat(((parseInt(latelyWages_B) + latelyWages_B * averageNumber_B) / 2 * payMonth_B / 12 * 0.01)).toFixed(2);
     var b = parseFloat((perMoney_B / calculateMonth_B)).toFixed(2);
-    var c = (parseFloat(a) + parseFloat(b)).toFixed(2);
+    var c = (parseFloat(a) + parseFloat(b)).toFixed(2);//退休金总计
     var d = (parseFloat(payMonth_B / 12)).toFixed(2);
 
     var retire = new Array(50);
-    var retireTotal=0;
-    var returnYear;
-    for (i=1;i<retire.length;i++){
-        retire[i]=(c*((parseFloat(retireUp/100)+1)^(i-1))).toFixed(2);
-        console.log(retire[i]);
-        retireTotal=(parseFloat(retireTotal)+parseFloat(retire[i]*12)).toFixed(2);
-        if (retireTotal>(payMoney_B * 12).toFixed(2)){
-            returnYear=i;
+    var retireTotal = 0;//领取退休金总额
+    var returnYear;//领取退休金年限
+    for (var t = 1; t < retire.length; t++) {
+        retire[t] = (c * ((parseFloat(retireUp / 100) + 1) ^ (t - 1))).toFixed(2);
+        retireTotal = (parseFloat(retireTotal) + parseFloat(retire[t] * 12)).toFixed(2);
+        if (retireTotal > (payMoney_B * 12).toFixed(2)) {
+            returnYear = t;
             break;
         }
     }
@@ -226,9 +251,9 @@ function calculate_B() {
     document.getElementById("accountMoney").innerHTML = b + "元";
     document.getElementById("averageNumber").innerHTML = averageNumber_B;
     document.getElementById("calculateMonth").innerHTML = calculateMonth_B;
-    document.getElementById("payMoney").innerHTML = (payMoney_B * 12).toFixed(2) + "元";
-    document.getElementById("govMoney").innerHTML = (govMoney_B * 12).toFixed(2) + "元";
-    document.getElementById("perMoney").innerHTML = (perMoney_B * 12).toFixed(2) + "元";
+    document.getElementById("payMoney").innerHTML = payMoney_B + "元";
+    document.getElementById("govMoney").innerHTML = govMoney_B + "元";
+    document.getElementById("perMoney").innerHTML = perMoney_B + "元";
     document.getElementById("payYear").innerHTML = d + "年";
     document.getElementById("limboMoney").innerHTML = "0元";
     document.getElementById("totalMoney").innerHTML = c + "元";
@@ -276,18 +301,18 @@ function payMonthChange() {
         bases[i] = "bases" + i;
     }
     if (a < 15 || a > 48) {
-        for (var i = 1; i < wages.length; i++) {
-            document.getElementById(wages[i]).disabled = true;
-            document.getElementById(bases[i]).disabled = true;
+        for (var m = 1; m < wages.length; m++) {
+            document.getElementById(wages[m]).disabled = true;
+            document.getElementById(bases[m]).disabled = true;
         }
     } else {
-        for (var i = 1; i < Math.ceil(parseFloat(a)) + 1; i++) {
-            document.getElementById(wages[i]).disabled = false;
-            document.getElementById(bases[i]).disabled = false;
+        for (var k = 1; k < Math.ceil(parseFloat(a)) + 1; k++) {
+            document.getElementById(wages[k]).disabled = false;
+            document.getElementById(bases[k]).disabled = false;
         }
-        for (var i = Math.ceil(parseFloat(a)) + 2; i < wages.length; i++) {
-            document.getElementById(wages[i]).disabled = true;
-            document.getElementById(bases[i]).disabled = true;
+        for (var j = Math.ceil(parseFloat(a)) + 2; j < wages.length; j++) {
+            document.getElementById(wages[j]).disabled = true;
+            document.getElementById(bases[j]).disabled = true;
         }
     }
 }

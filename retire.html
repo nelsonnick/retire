@@ -18,26 +18,11 @@
     </style>
 </head>
 <body>
-<div class="modal fade" id="myModal1">
+<div class="modal fade" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <p>请输入第一年的社平工资：</p>
-                <input type="number" id="1st" placeholder="第一年的社平工资" min="0" max="100000" value="0">元
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="firstStep()">确定</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="myModal2">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <p>请输入社平工资模式：</p><br/>
+                <p>根据社平工资增长模式（先输入第一年的社平工资）：</p><br/>
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="fixed()">固定不变</button>
                 <br/>
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="ratios()">等比增长</button>
@@ -53,22 +38,6 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="myModal3">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <p>请输入缴费比例：</p><br/>
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="base()">固定不变</button>
-                <input type="number" placeholder="固定比例" id="averageNumber_B" min="0.600" max="3.000" step="0.001"
-                       value="0.600"><br/>
-                <button type="button" class="btn btn-default" data-dismiss="modal">手动输入</button>
-                <br/>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container">
     <div class="st-container">
         <!--导航栏开始-->
@@ -109,7 +78,7 @@
                     </tr>
                     <tr>
                         <td><p>参加工作时间：</p></td>
-                        <td><p><input type="number" min="1970" max="1995" value="1980" id="workYear" style="width: 60px"/>年
+                        <td><p><input type="number" min="1970" max="1995" value="1996" id="workYear" style="width: 60px"/>年
                             <input type="number" min="1" max="12" value="1" id="workMonth" style="width: 40px"/>月</p></td>
                     </tr>
                     <tr>
@@ -132,14 +101,28 @@
                         <tr class="success">
                             <td colspan="12">
                                 <span>退休年龄：
-                                <input type="number" min="40" max="70" id="retireAge_B" value="50" style="width: 40px"/>
+                                <input type="number" min="40" max="70" id="retireAge_B" value="50" style="width: 50px"/>&nbsp;&nbsp;
                                 累计缴费月份：
-                                <input type="number" min="180" max="576" id="payMonth_B" value="180" onchange="payMonthChange()" style="width: 60px"/>
+                                <input type="number" min="180" max="576" id="payMonth_B" value="180" onchange="payMonthChange()" style="width: 60px"/>&nbsp;&nbsp;
+                                <select name="typePay" id="payType" onchange="typeChange()">
+                                    <option value="20" selected = "selected">个人缴费</option>
+                                    <option value="26">单位缴费</option>
+                                </select>&nbsp;&nbsp;
+                                <select name="medical" id="medicalRadio">
+                                    <option value="00" selected = "selected">无医保</option>
+                                    <option value="55">5.5%医保</option>
+                                    <option value="10">10%医保</option>
+                                </select>&nbsp;&nbsp;
                                 预计退休金涨幅：
-                                <input type="number" min="0" max="100" id="retireUp" value="0" style="width: 40px"/>%
+                                <input type="number" min="0" max="100" id="retireUp" value="0" style="width: 40px"/>%&nbsp;&nbsp;
+                                 请设定缴费比例：
+                                <input type="number" placeholder="固定比例" id="averageNumber_B" min="0.600" max="3.000" step="0.001" value="0.600" style="width: 60px">
+                                <button onclick="base()">快速设定缴费比例</button>&nbsp;&nbsp;
+                                <button type="button" data-toggle="modal" data-target="#myModal" onclick="">快速设定社平工资</button>&nbsp;&nbsp;
                                 <button onclick="calculate_B()">计算</button>
                                 <button onclick="clear_B()">重置</button>
-                                <button type="button" data-toggle="modal" data-target="#myModal1" onclick="">快速输入社平工资及缴费基数</button></span>
+                                </span>
+
                             </td>
                         </tr>
                         <tr class="active">
@@ -393,14 +376,15 @@
                 <p>1、基础养老金&nbsp;=&nbsp;(职工退休上限度全市在岗职工月平均工资&nbsp;+&nbsp;本人指数化月平均工资)&nbsp;&divide;&nbsp;2&nbsp;&times;&nbsp;缴费年限&nbsp;&times;&nbsp;1%；</p>
                 <p>2、个人账户养老金&nbsp;=&nbsp;个人账户存储额&nbsp;&divide;&nbsp;计发月份；</p>
                 <p>3、过渡性养老金&nbsp;=&nbsp;本人指数化月平均工资&nbsp;&times;&nbsp;1.3%&nbsp;&times;&nbsp;缴费年限（建立个人账户前的缴费年限，济南市为1996年1月）；</p>
-                <p>4、正常退休、因病退休、特殊工种退休的退休金计算公式一致。</p>
+                <p>4、正常退休、因病退休、特殊工种退休的退休金计算公式一致；</p>
+                <p>5、单位缴费、个人缴费的退休金计算公式一致。</p>
                 <br/>
                 <br/>
                 <p>在缴费估算中：</p>
                 <p>1、为方便计算，每年变更基数的时间一律取整，忽略视同缴费部分，忽略建立个人账户前的缴费年限；</p>
-                <p>2、由于忽略建立个人账户前的缴费年限，在退休金计算的过程中，无过渡性养老金；</p>
+                <p>2、由于忽略建立个人账户前的缴费年限，在退休金计算的过程中，过渡性养老金为0元；</p>
                 <p>3、目前仅针对个人缴纳保险进行估算，不用于估计单位缴费情况；</p>
-                <p>4、退休金的计算有且只跟职工养老保险相关，故忽略其他险种。</p>
+                <p>4、退休金的计算有且只跟职工养老保险相关，与其他险种无关。</p>
                 <br/>
                 <br/>
                 <p>注意：</p>

@@ -181,6 +181,7 @@ function calculate_B() {
     var perMoney_B = 0;//个人账户部分
     var payMoney_B = 0;//累计缴费
     var govMoney_B = 0;//社保统筹部分
+    var medMoney_B = 0;//医疗保险缴费
 
 
     if (parseInt(remainMonth) == 0) {
@@ -206,6 +207,30 @@ function calculate_B() {
         }
         bw[i] = document.getElementById(bases[i]).value / document.getElementById(wages[i]).value;
     }
+
+    if (document.getElementById("medicalRadio").value == 55) {
+        for (var s = 1; s < remainYearNext; s++) {
+            medMoney_B = (parseFloat(medMoney_B) + parseFloat(document.getElementById(wages[s]).value * 0.055) + 18).toFixed(3);
+        }
+        if (parseInt(document.getElementById("wages" + remainYearNext).value) == 0) {
+            medMoney_B = parseFloat(medMoney_B) * 12;
+        } else {
+            medMoney_B = (parseFloat(medMoney_B) * 12 + (parseFloat(document.getElementById("wages" + remainYearNext).value * 0.055) + 18) * remainMonth).toFixed(2);
+        }
+
+    } else if (document.getElementById("medicalRadio").value == 10) {
+        for (var q = 1; q < remainYearNext; q++) {
+            medMoney_B = (parseFloat(medMoney_B) + document.getElementById(wages[q]).value * 0.1).toFixed(3);
+        }
+        if (parseInt(document.getElementById("wages" + remainYearNext).value) == 0) {
+            medMoney_B = parseFloat(medMoney_B) * 12;
+        } else {
+            medMoney_B = (parseFloat(medMoney_B) * 12 + document.getElementById("wages" + remainYearNext).value * 0.1 * remainMonth).toFixed(2);
+        }
+    } else {
+        medMoney_B = 0;
+    }
+
     for (var l = 1; l < remainYearNext; l++) {
         total = (parseFloat(total) + parseFloat(bw[l])).toFixed(3);
         perMoney_B = (parseFloat(perMoney_B) + document.getElementById(bases[l]).value * 0.08).toFixed(2);
@@ -222,6 +247,7 @@ function calculate_B() {
         perMoney_B = (parseFloat(perMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.08 * remainMonth).toFixed(2);
         payMoney_B = (parseFloat(payMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.2 * remainMonth).toFixed(2);
         govMoney_B = (parseFloat(govMoney_B) * 12 + document.getElementById("bases" + remainYearNext).value * 0.12 * remainMonth).toFixed(2);
+
     }
 
     var averageNumber_B = (total / payMonth_B).toFixed(3);
@@ -235,34 +261,34 @@ function calculate_B() {
     var d = (parseFloat(payMonth_B / 12)).toFixed(2);
 
     var retire = new Array(50);//月退休工资
-    var returnYear=0;//领取退休金年限
-    var returnMonth=0;//领取退休金年限
-    var pm=payMoney_B;
+    var returnYear = 0;//领取退休金年限
+    var returnMonth = 0;//领取退休金年限
+    var pm = parseFloat(payMoney_B) + parseFloat(medMoney_B);
     aaa:
-    for (var t = 1; t < retire.length; t++) {
-        retire[t] = (c * Math.pow(retireUp * 0.01+1, t - 1)).toFixed(2);
-        for(var r=1;r<13;r++){
-            if (pm>0){
-                pm=pm-retire[t];
-            }else{
-                returnMonth=r-1;
-                break aaa;
+        for (var t = 1; t < retire.length; t++) {
+            retire[t] = (c * Math.pow(retireUp * 0.01 + 1, t - 1)).toFixed(2);
+            for (var r = 1; r < 13; r++) {
+                if (pm > 0) {
+                    pm = pm - retire[t];
+                } else {
+                    returnMonth = r - 1;
+                    break aaa;
+                }
             }
+            returnYear++;
         }
-        returnYear++;
-    }
 
     document.getElementById("basicMoney").innerHTML = a + "元";
     document.getElementById("accountMoney").innerHTML = b + "元";
     document.getElementById("averageNumber").innerHTML = averageNumber_B;
     document.getElementById("calculateMonth").innerHTML = calculateMonth_B;
-    document.getElementById("payMoney").innerHTML = payMoney_B + "元";
-    document.getElementById("govMoney").innerHTML = govMoney_B + "元";
-    document.getElementById("perMoney").innerHTML = perMoney_B + "元";
+    document.getElementById("payMoney").innerHTML = parseFloat(payMoney_B) + parseFloat(medMoney_B) + "元";
+    document.getElementById("govMoney").innerHTML = govMoney_B.toFixed(2) + "元";
+    document.getElementById("perMoney").innerHTML = perMoney_B.toFixed(2) + "元";
     document.getElementById("payYear").innerHTML = d + "年";
     document.getElementById("limboMoney").innerHTML = "0元";
     document.getElementById("totalMoney").innerHTML = c + "元";
-    document.getElementById("returnYear").innerHTML = returnYear + "年"+returnMonth + "月";
+    document.getElementById("returnYear").innerHTML = returnYear + "年" + returnMonth + "月";
     document.getElementById("st-control-5").checked = "true";
 }
 
@@ -296,6 +322,21 @@ function clear_B() {
 
     wagesChange();
 }
+
+function typeChange(){
+    if(document.getElementById("payType").value == 20){
+        document.getElementById("medicalRadio").value="00";
+        document.getElementById("medicalRadio").options[0].text="无医保";
+        document.getElementById("medicalRadio").disabled=false;
+    }else if(document.getElementById("payType").value == 26){
+        document.getElementById("medicalRadio").value="00";
+        document.getElementById("medicalRadio").options[0].text="11%医保";
+        document.getElementById("medicalRadio").disabled=true;
+    }else{
+
+    }
+}
+
 function payMonthChange() {
     var a = parseFloat(document.getElementById("payMonth_B").value / 12).toFixed(3);
     var wages = new Array(49);
@@ -315,18 +356,13 @@ function payMonthChange() {
             document.getElementById(wages[k]).disabled = false;
             document.getElementById(bases[k]).disabled = false;
         }
-        for (var j = Math.ceil(parseFloat(a)) + 2; j < wages.length; j++) {
+        for (var j = Math.ceil(parseFloat(a)) + 1; j < wages.length; j++) {
             document.getElementById(wages[j]).disabled = true;
             document.getElementById(bases[j]).disabled = true;
         }
     }
 }
 
-function firstStep() {
-    document.getElementById("wages1").value = document.getElementById("1st").value;
-    document.getElementById("1st").value = "0";
-    $('#myModal2').modal();
-}
 function fixed() {
     var wages = new Array(49);
     for (var i = 1; i < wages.length; i++) {
@@ -391,7 +427,6 @@ function base() {
             document.getElementById(bases[i]).value = "0";
         }
     }
-    document.getElementById("averageNumber_B").value = "0.600";
 }
 
 

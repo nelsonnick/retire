@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+</head>
+<body>
+<div data-role="page" id="page0">
+    <div data-role="content">
+        <a href="#page1" data-role="button" data-transition="slideup">我准备好了</a>
+    </div>
+</div>
+
+<div data-role="page" id="page1">
+    <div data-role="header" data-theme="b">
+        <h1>第一题</h1>
+    </div>
+    <div data-role="content">
+        <form method="post" action="">
+            <fieldset data-role="controlgroup">
+                <legend>以下歌曲中不是每周一歌的是：</legend>
+                <label for="1A">陈奕迅——十年</label>
+                <input type="radio" name="1" id="1A" value="1A">
+                <label for="1B">周杰伦——爱在西元前</label>
+                <input type="radio" name="1" id="1B" value="1B">
+                <label for="1C">愚人花园——Lemon Tree</label>
+                <input type="radio" name="1" id="1C" value="1C">
+                <label for="1D">西城男孩——Season In The Sun</label>
+                <input type="radio" name="1" id="1D" value="1D">
+            </fieldset>
+        </form>
+    </div>
+    <div data-role="controlgroup" data-type="vertical">
+        <a href="#page2" data-role="button" data-transition="slideup" data-icon="arrow-r" data-iconpos="right">下一题</a>
+    </div>
+</div>
+
+<div data-role="page" id="page2">
+    <div data-role="header"  data-theme="b">
+        <h1>第二题</h1>
+    </div>
+    <div data-role="content">
+        <form method="post" action="">
+            <fieldset data-role="controlgroup">
+                <legend>以下哪个不是我们的穿过的校服：</legend>
+                <label for="2A">休闲——碎花裙</label>
+                <input type="radio" name="2" id="2A" value="2A">
+                <label for="2B">运动——灰熊皮</label>
+                <input type="radio" name="2" id="2B" value="2B">
+                <label for="2C">正式——黑西服</label>
+                <input type="radio" name="2" id="2C" value="2C">
+                <label for="2D">夏季——白体恤</label>
+                <input type="radio" name="2" id="2D" value="2D">
+            </fieldset>
+        </form>
+    </div>
+    <div data-role="controlgroup" data-type="vertical">
+        <a href="#page3" data-role="button" data-transition="slideup" data-icon="arrow-r" data-iconpos="right">下一题</a>
+    </div>
+</div>
+<div data-role="page" id="page3">
+    <div data-role="header"  data-theme="b">
+        <h1>第三题</h1>
+    </div>
+    <div data-role="content">
+        <form method="post" action="">
+            <fieldset data-role="controlgroup">
+                <legend>本届初中时一共有多少个班：</legend>
+                <label for="3A">八荣八耻——必须是八个班</label>
+                <input type="radio" name="3" id="3A" value="3A">
+                <label for="3B">九九归一——应该是九个班</label>
+                <input type="radio" name="3" id="3B" value="3B">
+                <label for="3C">十全十美——可能是十个班</label>
+                <input type="radio" name="3" id="3C" value="3C">
+                <label for="3D">光棍之数——难道十一个班</label>
+                <input type="radio" name="3" id="3D" value="3D">
+            </fieldset>
+        </form>
+    </div>
+    <div data-role="controlgroup" data-type="vertical">
+        <a href="#page4" data-role="button" data-transition="slideup" data-icon="arrow-r" data-iconpos="right">下一题</a>
+    </div>
+</div>
+<div data-role="page" id="page4">
+    <div data-role="header"  data-theme="b">
+        <h1>第四题</h1>
+    </div>
+    <div data-role="content">
+        <form method="post" action="">
+            <fieldset data-role="controlgroup">
+                <legend>以下哪个校区我们生活过：</legend>
+                <label for="4A">小桥流水——七里河</label>
+                <input type="radio" name="4" id="4A" value="4A">
+                <label for="4B">贵族天地——金鸡岭</label>
+                <input type="radio" name="4" id="4B" value="4B">
+                <label for="4C">设施齐全——师范路</label>
+                <input type="radio" name="4" id="4C" value="4C">
+                <label for="4D">秸秆焚烧——飞机场</label>
+                <input type="radio" name="4" id="4D" value="4D">
+            </fieldset>
+        </form>
+    </div>
+    <div data-role="controlgroup" data-type="vertical">
+        <a href="#page5" data-role="button" data-transition="slideup" data-icon="arrow-r" data-iconpos="right">下一题</a>
+    </div>
+</div>
+<div data-role="page" id="page5">
+    <div data-role="header"  data-theme="b">
+        <h1>第五题</h1>
+    </div>
+    <div data-role="content">
+        <form method="post" action="">
+            <div data-role="fieldcontain">
+                <label for="Sue">我校的英文简写是什么</label>
+                <input type="text" name="Sue" id="Sue" placeholder="答案区分大小写">
+            </div>
+        </form>
+    </div>
+    <div data-role="controlgroup" data-type="vertical">
+        <a href="#page6" data-role="button" data-transition="slideup" data-icon="arrow-r" data-iconpos="right">下一题</a>
+    </div>
+</div>
+<div data-role="page" id="page6">
+    <div data-role="header"  data-theme="b">
+        <h1>恭喜你！</h1>
+    </div>
+    <div data-role="content">
+        <h1>居然全都答对了！</h1>
+        <h1>春节惊喜，要不要来一发？</h1>
+    </div>
+    <div data-role="controlgroup" data-type="vertical">
+        <a href="#page7" data-role="button" data-transition="slideup" data-icon="arrow-r" data-iconpos="right">那是必须的！！！</a>
+        <a href="#page1" data-role="button" data-transition="slideup" data-icon="arrow-r" data-iconpos="right">还是算了吧。。。</a>
+    </div>
+</div>
+<div data-role="page" id="page7">
+    <div data-role="content">
+        <h1>2016年济外新春同学会</h1>
+        <h1>火热报名中！</h1>
+        <form method="post" action="">
+            <div data-role="fieldcontain">
+                <label for="pname">姓名：</label>
+                <input type="text" name="pname" id="pname" placeholder="输入外号可不行哦">
+                <label for="pnumber">电话：</label>
+                <input type="text" name="pnumber" id="pnumber" placeholder="手机号码，随时联络">
+            </div>
+            <input type="submit" data-inline="true" value="我要报名">
+        </form>
+    </div>
+    <div data-role="content">
+        报名须知：</br>
+        1、跟往年一样，聚会费用AA，初步估计人均一百，多余的不退，不足的要补（多余的钱，大家抢抢红包怎么样）；</br>
+        2、允许携带家属，配偶费用减半，子女费用全免；</br>
+        3、报名成功后组织者将与您联系，收取相关费用。收费使用微信转账，概不接受现金；</br>
+        4、报名人数低于15人，本次活动取消，已收款项逐一全额退回；</br>
+        5、聚会的具体时间暂定大年初四午后，怎么得一起吃个饭什么的吧。</br>
+        6、本次聚会主要针对济外2002级高中2班，同级的其他班级有兴趣者欢迎报名参加。诚邀其他班级的组织者已班级的形式组织联欢。</br>
+    </div>
+</div>
+<div data-role="page" id="page8">
+    <div data-role="header"  data-theme="b">
+        <h1>出错啦！</h1>
+    </div>
+    <div data-role="content">
+        <h1>居然全都答对了！</h1>
+    </div>
+    <div data-role="controlgroup" data-type="vertical">
+        <a href="#page7" data-role="button" data-transition="slideup" data-icon="arrow-r" data-iconpos="right">重新填写</a>
+    </div>
+</div>
+</body>
+</html>

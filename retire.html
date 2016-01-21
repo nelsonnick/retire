@@ -190,13 +190,13 @@
                     <table class="table table-hover table-condensed">
                         <thead>
                         <tr class="success">
-                            <td colspan="12">
+                            <td colspan="12" style="text-align: left">
                                 <div class="form-inline">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-addon">退休年龄：</div>
                                             <input class="form-control" type="number" min="40" max="70" id="retireAge_B"
-                                                   value="50" style="width: 70px"/>
+                                                   value="50" style="width: 60px"/>
                                             <div class="input-group-addon">岁</div>
                                         </div>
                                     </div>
@@ -205,7 +205,7 @@
                                             <div class="input-group-addon">累计缴费：</div>
                                             <input class="form-control" type="number" min="180" max="576"
                                                    id="payMonth_B" value="180" onchange="payMonthChange()"
-                                                   style="width: 90px"/>
+                                                   style="width: 80px"/>
                                             <div class="input-group-addon">月</div>
                                         </div>
                                     </div>
@@ -233,16 +233,16 @@
                                         <div class="input-group">
                                             <div class="input-group-addon">退休金涨幅：</div>
                                             <input class="form-control" type="number" min="0" max="100" id="retireUp"
-                                                   value="0" style="width: 70px"/>
+                                                   value="0" style="width: 60px"/>
                                             <div class="input-group-addon">%</div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <button class="btn btn-warning" type="button" data-toggle="modal"
-                                                data-target="#myModal1" onclick="">快速输入社平工资
+                                                data-target="#myModal1" onclick="">社平
                                         </button>
                                         <button class="btn btn-info" type="button" data-toggle="modal"
-                                                data-target="#myModal2" onclick="">快速输入缴费基数
+                                                data-target="#myModal2" onclick="">基数
                                         </button>
                                         <button class="btn btn-success" onclick="calculate_B()">计算</button>
                                         <button class="btn btn-danger" onclick="clear_B()">重置</button>
